@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom';
-import App from './components/App/App';
 import Navbar from './components/Navbar/Navbar';
+import HowManyPlayers from './components/HowManyPlayers/HowManyPlayers';
 
 ReactDOM.render(
   <>
     <Navbar />
-    <App />
+    <HowManyPlayers />
   </>,
   document.getElementById('root')
 );

@@ -1,0 +1,59 @@
+.player-container {
+    display: flex;
+    padding: 0.5rem;
+
+    .name {
+        margin: 0.5rem;
+        font-weight: bold;
+        font-size: 3rem;
+        border: 0.3rem solid #ddd;
+        border-radius: 2rem;
+        transition: border-color 0.2s ease-in-out;
+        font-family: sans-serif;
+        color: #8890b4;
+        width: 70%;
+        text-align: center;
+
+        &:focus {
+            outline: none;
+            border-color: #8890b4;
+        }
+    }
+
+    .numeric-input {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 3rem;
+        background-color: #8890b4;
+
+        .nCards {
+            border-radius: 3rem;
+            font-weight: bold;
+            width: 4rem;
+            padding: 0.5rem;
+            font-size: 3rem;
+            border: 0.2rem solid #8890b4;
+            transition: border-color 0.2s ease-in-out;
+            font-family: sans-serif;
+            color: #8890b4;
+            text-align: center;
+
+            &:focus {
+                outline: none;
+                border-color: #8890b4;
+            }
+        }
+
+        .numeric-button {
+            background-color: transparent;
+            color: #ddd;
+            font-size: 3rem;
+            border: 0 transparent;
+            cursor: pointer;
+
+            &:active {
+                color: #ffffff;
+            }
+        }
+    }
+}

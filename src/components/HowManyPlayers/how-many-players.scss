@@ -1,0 +1,60 @@
+.HowManyPlayers-container {
+
+    .title {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .nplayer-container {
+        flex-direction: column;
+
+        .name-span {
+            font-size: 1.8rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .ncards-span {
+            font-size: 1.8rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-container {
+            display: flex;
+
+            .DeletePlayer-button {
+                background-color: #f44336;
+                color: #fff;
+                font-size: 1.5rem;
+                border: none;
+                border-radius: 50%;
+                width: 3rem;
+                height: 3rem;
+                margin-top: 0.5rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #d32f2f;
+                }
+
+            }
+        }
+    }
+    .NewPlayer-button {
+        background-color: #4caf50;
+        color: #fff;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        margin-top: 1rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #388e3c;
+        }
+    }
+}
