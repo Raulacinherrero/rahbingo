@@ -10,13 +10,13 @@
         border-radius: 2rem;
         transition: border-color 0.2s ease-in-out;
         font-family: sans-serif;
-        color: #8890b4;
+        color: hsl(214, 73%, 65%);
         width: 70%;
         text-align: center;
 
         &:focus {
             outline: none;
-            border-color: #8890b4;
+            border-color: hsl(214, 73%, 65%);
         }
     }
 
@@ -24,7 +24,7 @@
         margin: 0.5rem;
         padding: 0.5rem;
         border-radius: 3rem;
-        background-color: #8890b4;
+        background-color: hsl(214, 73%, 65%);
 
         .nCards {
             border-radius: 3rem;
@@ -32,15 +32,15 @@
             width: 4rem;
             padding: 0.5rem;
             font-size: 3rem;
-            border: 0.2rem solid #8890b4;
+            border: 0.2rem solid hsl(214, 73%, 65%);
             transition: border-color 0.2s ease-in-out;
             font-family: sans-serif;
-            color: #8890b4;
+            color: hsl(214, 73%, 65%);
             text-align: center;
 
             &:focus {
                 outline: none;
-                border-color: #8890b4;
+                border-color: hsl(214, 73%, 65%);
             }
         }
 

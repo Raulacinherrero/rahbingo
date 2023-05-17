@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #8890b4;
+  background-color: hsl(214, 73%, 65%);
   color: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -53,13 +53,13 @@
   }
 
   .logo-container:hover {
-    background-color: #8890b4;
+    background-color: hsl(214, 73%, 65%);
     color: #fff;
     background-color: #fff;
 
     .title {
       transform: scale(1.1);
-      color: #8890b4;
+      color: hsl(214, 73%, 65%);
     }
 
     .logo {
@@ -94,7 +94,7 @@
       .tercer-link {
         cursor: pointer;
         background-color: #fff;
-        color: #8890b4;
+        color: hsl(214, 73%, 65%);
         border: 2px solid #fff;
         text-decoration: none;
         font-weight: bold;
@@ -103,7 +103,7 @@
         transition: all 0.2s ease-in-out;
 
         &:hover {
-          background-color: #8890b4;
+          background-color: hsl(214, 73%, 65%);
           color: #fff;
           border: 2px solid #fff;
         }
@@ -113,7 +113,7 @@
         position: absolute;
         top: 6rem;
         right: 1.07rem;
-        border: 3px solid #8890b4;
+        border: 3px solid hsl(214, 73%, 65%);
         background-color: #fff;
         padding: 0.2rem;
         border-radius: 2rem;
@@ -132,7 +132,7 @@
 
         .dropdown-link {
           padding: 1rem;
-          color: #8890b4;
+          color: hsl(214, 73%, 65%);
           text-decoration: none;
           font-weight: bold;
           display: block;
@@ -140,7 +140,7 @@
           border-radius: 2rem;
 
           &:hover {
-            background-color: #8890b4;
+            background-color: hsl(214, 73%, 65%);
             color: #fff;
           }
         }
@@ -162,7 +162,7 @@
   left: 48.55%;
 
   .arrow-icon {
-    color: #8890b4;
+    color: hsl(214, 73%, 65%);
     font-size: 1.5rem;
     transition: all 0.2s ease-in-out;
 
@@ -172,7 +172,7 @@
   }
 
   &:hover {
-    background-color: #8890b4;
+    background-color: hsl(214, 73%, 65%);
     color: #fff;
 
     .arrow-icon {
