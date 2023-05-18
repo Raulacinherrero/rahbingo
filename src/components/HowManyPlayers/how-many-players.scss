@@ -1,60 +1,124 @@
 .HowManyPlayers-container {
-
     .title {
-        font-size: 2.5rem;
-        color: #333;
-        margin-bottom: 1rem;
+        font-weight: bold;
+        padding: 0.5rem;
+        font-size: 3rem;
+        font-family: sans-serif;
+        color: hsl(214, 73%, 65%);
+        text-align: center;
+        margin: 3rem;
+    }
+
+    .texts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 2rem;
+
+        .text {
+            display: flex;
+            justify-content: left;
+
+            .name-span {
+                font-weight: bold;
+                padding: 0.5rem;
+                font-size: 3rem;
+                font-family: sans-serif;
+                color: hsl(214, 73%, 65%);
+                text-align: center;
+                margin-left: 13.5rem;
+            }
+    
+            .ncards-span {
+                font-weight: bold;
+                padding: 0.5rem;
+                font-size: 2rem;
+                font-family: sans-serif;
+                color: hsl(214, 73%, 65%);
+                text-align: center;
+                margin-left: 13rem;
+    
+                span {
+                    display: block;
+                }
+            }
+        }
     }
 
     .nplayer-container {
-        flex-direction: column;
-
-        .name-span {
-            font-size: 1.8rem;
-            color: #555;
-            margin-bottom: 0.5rem;
-        }
-
-        .ncards-span {
-            font-size: 1.8rem;
-            color: #555;
-            margin-bottom: 0.5rem;
-        }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+        margin: 2rem;
+        overflow-y: auto;
+        max-height: 310px;
 
         .player-container {
             display: flex;
+            margin: 1px;
 
             .DeletePlayer-button {
                 background-color: #f44336;
                 color: #fff;
-                font-size: 1.5rem;
+                font-size: 2rem;
                 border: none;
                 border-radius: 50%;
-                width: 3rem;
-                height: 3rem;
-                margin-top: 0.5rem;
+                width: 4rem;
+                height: 4rem;
+                margin-top: 1.75rem;
                 cursor: pointer;
 
                 &:hover {
                     background-color: #d32f2f;
                 }
-
             }
         }
     }
-    .NewPlayer-button {
-        background-color: #4caf50;
-        color: #fff;
-        font-size: 1.5rem;
-        border: none;
-        border-radius: 50%;
-        width: 3rem;
-        height: 3rem;
-        margin-top: 1rem;
+
+    .NewPlayer-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0.5rem dashed #4caf50;
+        height: 4rem;
+        width: 49rem;
+        border-radius: 2rem;
+        margin: 1.5rem;
         cursor: pointer;
 
-        &:hover {
-            background-color: #388e3c;
+        .NewPlayer-button {
+            background-color: #4caf50;
+            color: #fff;
+            font-size: 2rem;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
         }
+
+        &:hover {
+            border: 0.5rem dashed #84ca87;
+
+            .NewPlayer-button {
+                background-color: #84ca87;
+            }
+        }
+    }
+    .nplayer-container::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .nplayer-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 6px;
+    }
+
+    .nplayer-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 6px;
+    }
+
+    .nplayer-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 }
