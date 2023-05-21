@@ -1,18 +1,20 @@
+@import '../../styles/variables.scss';
+
 .HowManyPlayers-container {
     .title {
         font-weight: bold;
         padding: 0.5rem;
         font-size: 3rem;
         font-family: sans-serif;
-        color: hsl(214, 73%, 65%);
+        color: $corpColor;
         text-align: center;
-        margin: 3rem;
+        margin: 2rem;
     }
 
     .texts {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        margin: 2rem;
+        margin: 1rem;
 
         .text {
             display: flex;
@@ -21,22 +23,22 @@
             .name-span {
                 font-weight: bold;
                 padding: 0.5rem;
-                font-size: 3rem;
+                font-size: 2.5rem;
                 font-family: sans-serif;
-                color: hsl(214, 73%, 65%);
+                color: $corpColor;
                 text-align: center;
-                margin-left: 13.5rem;
+                margin-left: 14rem;
             }
-    
+
             .ncards-span {
                 font-weight: bold;
                 padding: 0.5rem;
-                font-size: 2rem;
+                font-size: 1.5rem;
                 font-family: sans-serif;
-                color: hsl(214, 73%, 65%);
+                color: $corpColor;
                 text-align: center;
-                margin-left: 13rem;
-    
+                margin-left: 15.5rem;
+
                 span {
                     display: block;
                 }
@@ -48,17 +50,17 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 1rem;
-        margin: 2rem;
+        margin: 1rem;
         overflow-y: auto;
-        max-height: 310px;
+        max-height: 470px;
 
         .player-container {
             display: flex;
             margin: 1px;
 
             .DeletePlayer-button {
-                background-color: #f44336;
-                color: #fff;
+                background-color: $rojo;
+                color: $blanco;
                 font-size: 2rem;
                 border: none;
                 border-radius: 50%;
@@ -68,7 +70,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    background-color: #d32f2f;
+                    background-color: $rojo2;
                 }
             }
         }
@@ -78,7 +80,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 0.5rem dashed #4caf50;
+        border: 0.5rem dashed $verde;
         height: 4rem;
         width: 49rem;
         border-radius: 2rem;
@@ -86,8 +88,8 @@
         cursor: pointer;
 
         .NewPlayer-button {
-            background-color: #4caf50;
-            color: #fff;
+            background-color: $verde;
+            color: $blanco;
             font-size: 2rem;
             border: none;
             border-radius: 50%;
@@ -97,28 +99,49 @@
         }
 
         &:hover {
-            border: 0.5rem dashed #84ca87;
+            border: 0.5rem dashed $verde2;
 
             .NewPlayer-button {
-                background-color: #84ca87;
+                background-color: $verde2;
             }
         }
     }
+
     .nplayer-container::-webkit-scrollbar {
         width: 12px;
     }
 
     .nplayer-container::-webkit-scrollbar-track {
-        background: #f1f1f1;
+        background: $gris;
         border-radius: 6px;
     }
 
     .nplayer-container::-webkit-scrollbar-thumb {
-        background: #888;
+        background: $gris2;
         border-radius: 6px;
     }
 
     .nplayer-container::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: $gris3;
+    }
+
+    .submit-button-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .submit-button {
+        background-color: $corpColor;
+        color: $blanco;
+        font-size: 2rem;
+        border: none;
+        border-radius: 2rem;
+        padding: 1rem 2rem;
+        cursor: pointer;
+
+        &:active {
+            background-color: $corpColor2;
+        }
     }
 }

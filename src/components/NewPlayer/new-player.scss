@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .player-container {
     display: flex;
     padding: 0.5rem;
@@ -6,17 +8,17 @@
         margin: 0.5rem;
         font-weight: bold;
         font-size: 3rem;
-        border: 0.3rem solid #ddd;
+        border: 0.3rem solid $blanco;
         border-radius: 2rem;
         transition: border-color 0.2s ease-in-out;
         font-family: sans-serif;
-        color: hsl(214, 73%, 65%);
+        color: $corpColor;
         width: 35rem;
         text-align: center;
 
         &:focus {
             outline: none;
-            border-color: hsl(214, 73%, 65%);
+            border-color: $corpColor;
         }
     }
 
@@ -24,7 +26,7 @@
         margin: 0.5rem;
         padding: 0.5rem;
         border-radius: 3rem;
-        background-color: hsl(214, 73%, 65%);
+        background-color: $corpColor;
 
         .nCards {
             border-radius: 3rem;
@@ -32,27 +34,27 @@
             width: 4rem;
             padding: 0.5rem;
             font-size: 3rem;
-            border: 0.2rem solid hsl(214, 73%, 65%);
+            border: 0.2rem solid $corpColor;
             transition: border-color 0.2s ease-in-out;
             font-family: sans-serif;
-            color: hsl(214, 73%, 65%);
+            color: $corpColor;
             text-align: center;
 
             &:focus {
                 outline: none;
-                border-color: hsl(214, 73%, 65%);
+                border-color: $corpColor;
             }
         }
 
         .numeric-button {
             background-color: transparent;
-            color: #ddd;
+            color: $blanco;
             font-size: 3rem;
             border: 0 transparent;
             cursor: pointer;
 
             &:active {
-                color: #ffffff;
+                color: $blanco2;
             }
         }
     }

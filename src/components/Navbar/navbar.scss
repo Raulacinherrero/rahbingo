@@ -1,6 +1,8 @@
+@import '../../styles/variables.scss';
+
 .navbar {
-  background-color: hsl(214, 73%, 65%);
-  color: #ffffff;
+  background-color: $corpColor;
+  color: $blanco2;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,7 +31,7 @@
     a {
       display: flex;
       align-items: center;
-      color: #fff;
+      color: $blanco;
       font-weight: bold;
       text-decoration: none;
 
@@ -53,13 +55,13 @@
   }
 
   .logo-container:hover {
-    background-color: hsl(214, 73%, 65%);
-    color: #fff;
-    background-color: #fff;
+    background-color: $corpColor;
+    color: $blanco;
+    background-color: $blanco;
 
     .title {
       transform: scale(1.1);
-      color: hsl(214, 73%, 65%);
+      color: $corpColor;
     }
 
     .logo {
@@ -81,7 +83,7 @@
       font-family: sans-serif;
 
       .link {
-        color: #ffffff;
+        color: $blanco2;
         text-decoration: none;
         font-weight: bold;
         padding: 1rem;
@@ -93,9 +95,9 @@
 
       .tercer-link {
         cursor: pointer;
-        background-color: #fff;
-        color: hsl(214, 73%, 65%);
-        border: 2px solid #fff;
+        background-color: $blanco;
+        color: $corpColor;
+        border: 2px solid $blanco;
         text-decoration: none;
         font-weight: bold;
         padding: 1rem;
@@ -103,9 +105,9 @@
         transition: all 0.2s ease-in-out;
 
         &:hover {
-          background-color: hsl(214, 73%, 65%);
-          color: #fff;
-          border: 2px solid #fff;
+          background-color: $corpColor;
+          color: $blanco;
+          border: 2px solid $blanco;
         }
       }
 
@@ -113,8 +115,8 @@
         position: absolute;
         top: 6rem;
         right: 1.07rem;
-        border: 3px solid hsl(214, 73%, 65%);
-        background-color: #fff;
+        border: 3px solid $corpColor;
+        background-color: $blanco;
         padding: 0.2rem;
         border-radius: 2rem;
         z-index: 1;
@@ -132,7 +134,7 @@
 
         .dropdown-link {
           padding: 1rem;
-          color: hsl(214, 73%, 65%);
+          color: $corpColor;
           text-decoration: none;
           font-weight: bold;
           display: block;
@@ -140,8 +142,8 @@
           border-radius: 2rem;
 
           &:hover {
-            background-color: hsl(214, 73%, 65%);
-            color: #fff;
+            background-color: $corpColor;
+            color: $blanco;
           }
         }
       }
@@ -162,7 +164,7 @@
   left: 48.55%;
 
   .arrow-icon {
-    color: hsl(214, 73%, 65%);
+    color: $corpColor;
     font-size: 1.5rem;
     transition: all 0.2s ease-in-out;
 
@@ -172,11 +174,11 @@
   }
 
   &:hover {
-    background-color: hsl(214, 73%, 65%);
-    color: #fff;
+    background-color: $corpColor;
+    color: $blanco;
 
     .arrow-icon {
-      color: #fff;
+      color: $blanco;
     }
   }
 }
