@@ -48,11 +48,11 @@ const NewPlayer = (props: NewPlayerProps) => {
         required
       />
       <div className="numeric-input">
-        <button className="numeric-button" onClick={handleDecrement}>
+        <button className="numeric-button" onClick={handleDecrement} type='button'>
           <FontAwesomeIcon icon={faMinus} />
         </button>
         <input className="nCards" type="number" value={numericValue} readOnly />
-        <button className="numeric-button" onClick={handleIncrement}>
+        <button className="numeric-button" onClick={handleIncrement} type='button'>
           <FontAwesomeIcon icon={faPlus} />
         </button>
       </div>
