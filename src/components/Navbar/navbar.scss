@@ -8,7 +8,7 @@
   align-items: center;
   padding: 1rem;
   transition: max-height 0.2s ease-in-out;
-  max-height: 100px;
+  max-height: 10rem;
   overflow: hidden;
 
   &.navbar-hidden {
@@ -121,7 +121,7 @@
         border-radius: 2rem;
         z-index: 1;
         transition: max-height 0.2s ease-in-out, border 0.2s ease-in-out, top 0.2s ease-in-out;
-        max-height: 113px;
+        max-height: 10rem;
         overflow: hidden;
 
         &.dropdown-hidden {

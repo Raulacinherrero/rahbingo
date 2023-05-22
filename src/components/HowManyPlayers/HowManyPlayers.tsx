@@ -1,4 +1,4 @@
-// import fs from 'fs';
+import React from 'react';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -42,32 +42,7 @@ const HowManyPlayers = () => {
 
 
     const handleReady = () => {
-        // for (let i = 0; i < players.length; i++) {
-        //   const currentPlayer = players[i];
-        //   const jugador = new Jugador(currentPlayer.name, currentPlayer.cards);
-      
-        //   const jugadorDirectory = `../../../cartones/${jugador.getNombreJugador()}`;
-      
-        //   if (!fs.existsSync(jugadorDirectory)) {
-        //     try {
-        //       fs.mkdirSync(jugadorDirectory, { recursive: true });
-        //     } catch (error) {
-        //       console.error(`Error al crear el directorio ${jugadorDirectory}: ${error}`);
-        //       continue;
-        //     }
-        //   }
-      
-        //   jugador.getCartonesJugador().forEach((carton, index) => {
-        //     const cartonPath = `${jugadorDirectory}/carton${index + 1}.json`;
-        //     const cartonData = JSON.stringify(carton, null, 2);
-      
-        //     try {
-        //       fs.writeFileSync(cartonPath, cartonData);
-        //     } catch (error) {
-        //       console.error(`Error al escribir en el archivo ${cartonPath}: ${error}`);
-        //     }
-        //   });
-        // }
+        // wip
       };
     
       return (

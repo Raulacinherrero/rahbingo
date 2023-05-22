@@ -2,13 +2,14 @@
 
 .player-container {
     display: flex;
-    padding: 0.5rem;
+    padding: 0.1rem;
 
     .name {
+        height: 6rem;
         margin: 0.5rem;
         font-weight: bold;
         font-size: 3rem;
-        border: 0.3rem solid $blanco;
+        border: 0.3rem solid $gris;
         border-radius: 2rem;
         transition: border-color 0.2s ease-in-out;
         font-family: sans-serif;
@@ -27,11 +28,12 @@
         padding: 0.5rem;
         border-radius: 3rem;
         background-color: $corpColor;
+        height: 6rem;
 
         .nCards {
             border-radius: 3rem;
             font-weight: bold;
-            width: 4rem;
+            width: 5rem;
             padding: 0.5rem;
             font-size: 3rem;
             border: 0.2rem solid $corpColor;

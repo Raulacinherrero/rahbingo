@@ -22,7 +22,6 @@
 
             .name-span {
                 font-weight: bold;
-                padding: 0.5rem;
                 font-size: 2.5rem;
                 font-family: sans-serif;
                 color: $corpColor;
@@ -32,7 +31,6 @@
 
             .ncards-span {
                 font-weight: bold;
-                padding: 0.5rem;
                 font-size: 1.5rem;
                 font-family: sans-serif;
                 color: $corpColor;
@@ -52,7 +50,7 @@
         grid-gap: 1rem;
         margin: 1rem;
         overflow-y: auto;
-        max-height: 470px;
+        max-height: 410px;
 
         .player-container {
             display: flex;
@@ -81,7 +79,7 @@
         justify-content: center;
         align-items: center;
         border: 0.5rem dashed $verde;
-        height: 4rem;
+        height: 5rem;
         width: 49rem;
         border-radius: 2rem;
         margin: 1.5rem;
@@ -132,6 +130,8 @@
     }
 
     .submit-button {
+        position: fixed;
+        bottom: 5rem;
         background-color: $corpColor;
         color: $blanco;
         font-size: 2rem;
