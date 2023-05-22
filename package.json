@@ -3,8 +3,7 @@
   "private": true,
   "description": "mi proyecto de fin de DAW",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "main": "index.js",
+  "author": "Raúl Acín Herrero",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
