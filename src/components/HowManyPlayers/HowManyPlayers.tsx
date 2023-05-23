@@ -40,12 +40,12 @@ const HowManyPlayers = () => {
         setPlayers(updatedPlayers);
     };
 
-
     const handleReady = () => {
-        // wip
-      };
-    
-      return (
+        const jugadorObjects = players.map(player => new Jugador(player.name, player.cards));
+        //wip
+    };
+
+    return (
         <form>
             <div className='HowManyPlayers-container'>
                 <h1 className='title'>¿Quiénes van a Jugar?</h1>
