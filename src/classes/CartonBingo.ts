@@ -15,7 +15,11 @@ class CartonBingo {
         this.bingo = false;
         CartonBingo.sumarIdC();
 
-        this.carton = [];
+        const linea1: NumBingo[] = [];
+        const linea2: NumBingo[] = [];
+        const linea3: NumBingo[] = [];
+
+        this.carton = [linea1, linea2, linea3];
 
         const numeros: number[] = [];
 
@@ -24,24 +28,15 @@ class CartonBingo {
         for (let nColumna = 0; nColumna < 9; nColumna++) {
             numeros.length = 0;
 
-            for (let n = 0; n < 10; n++) {
+            for (let n = 1; n < 11; n++) {
                 numeros.push(n + nColumna * 10);
             }
 
-            if (nColumna === 0) {
-                numeros.shift();
-            }
-
-            if (nColumna === 8) {
-                numeros.push(90);
-            }
-
-            for (let nLinea = 0; nLinea < this.carton.length; nLinea++) {
+            this.carton.forEach((linea) => {
                 random = Math.floor(Math.random() * numeros.length);
-                this.carton[nLinea] = this.carton[nLinea] || [];
-                this.carton[nLinea].push(new NumBingo(numeros[random]));
+                linea.push(new NumBingo(numeros[random]));
                 numeros.splice(random, 1);
-            }
+            });
         }
 
         numeros.splice(0, numeros.length);
