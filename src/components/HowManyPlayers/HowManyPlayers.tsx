@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import NewPlayer from '../NewPlayer/NewPlayer';
 import Jugador from '../../classes/Jugador';
+import { Link } from 'gatsby';
 import './how-many-players.scss';
 
 interface Player {
@@ -93,9 +94,7 @@ const HowManyPlayers = () => {
                     )}
                 </div>
                 <div className='submit-button-container'>
-                    <button type='button' className='submit-button' onClick={handleReady}>
-                        Listo
-                    </button>
+                    <Link to="/prematch" className='submit-button' onClick={handleReady} >Listo</Link>
                 </div>
             </div>
         </form>
