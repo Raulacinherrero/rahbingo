@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'gatsby';
 
 import './navbar.scss';
 
@@ -40,9 +41,7 @@ function Navbar() {
                             Jugar al BINGO
                         </span>
                         <div className={`dropdown ${isDropdownVisible ? '' : 'dropdown-hidden'}`}>
-                            <a className="dropdown-link" href="#">
-                                Nueva Partida
-                            </a>
+                            <Link to="/players" className="dropdown-link">Nueva Partida</Link>
                             <a className="dropdown-link" href="#">
                                 Cargar Partida
                             </a>
