@@ -1,18 +1,18 @@
 class NumBingo {
-    private numB: number;
+    private num: number;
     private esta: boolean;
 
     constructor(numB: number) {
-        this.numB = numB;
+        this.num = numB;
         this.esta = false;
     }
 
     getNumB(): number {
-        return this.numB;
+        return this.num;
     }
 
     setNumB(numB: number): void {
-        this.numB = numB;
+        this.num = numB;
     }
 
     isInBingo(): boolean {
@@ -24,7 +24,7 @@ class NumBingo {
     }
 
     toString(): string {
-        return this.numB.toString();
+        return this.num.toString();
     }
 }
 
