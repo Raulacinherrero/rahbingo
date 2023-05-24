@@ -32,10 +32,14 @@ class CartonBingo {
                 numeros.push(n + nColumna * 10);
             }
 
+            for (let i = 0; i < 7; i++) {
+                const randomIndex = Math.floor(Math.random() * numeros.length);
+                numeros.splice(randomIndex, 1);
+            }
+
             this.carton.forEach((linea) => {
-                random = Math.floor(Math.random() * numeros.length);
-                linea.push(new NumBingo(numeros[random]));
-                numeros.splice(random, 1);
+                linea.push(new NumBingo(numeros[0]));
+                numeros.shift();
             });
         }
 
