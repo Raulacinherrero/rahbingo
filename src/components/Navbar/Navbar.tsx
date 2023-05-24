@@ -22,7 +22,7 @@ function Navbar() {
                 <div className="logo-container">
                     <a className="logo-link" href="/">
                         <div className="logo" />
-                        <div className="title">RAH Bingo Offline</div>
+                        <div className="title">RAH Bingo</div>
                     </a>
                 </div>
                 <ul>
