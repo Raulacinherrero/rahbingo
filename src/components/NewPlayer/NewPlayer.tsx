@@ -21,16 +21,16 @@ const NewPlayer: React.FC<NewPlayerProps> = ({ id, name, cards, onChange }) => {
   };
 
   const handleIncrement = () => {
-    const newValue = numericValue + 1;
+    const newValue = numericValue < 3 ? numericValue + 1 : 3;
     setNumericValue(newValue);
     onChange(id, 'cards', newValue);
   };
-
+  
   const handleDecrement = () => {
     const newValue = numericValue > 1 ? numericValue - 1 : 1;
     setNumericValue(newValue);
     onChange(id, 'cards', newValue);
-  };
+  };  
 
   return (
     <div className="player-container">
