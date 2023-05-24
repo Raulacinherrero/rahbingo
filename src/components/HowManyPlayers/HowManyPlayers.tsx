@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import NewPlayer from '../NewPlayer/NewPlayer';
@@ -33,7 +32,7 @@ const HowManyPlayers = () => {
         setPlayers(updatedPlayers);
     };
 
-    const handlePlayerChange = (id: number, field: string, value: number) => {
+    const handlePlayerChange = (id: number, field: string, value: string | number) => {
         const updatedPlayers = players.map(player =>
             player.id === id ? { ...player, [field]: value } : player
         );
@@ -43,7 +42,7 @@ const HowManyPlayers = () => {
     const handleReady = () => {
         const jugadorObjects = players.map(player => new Jugador(player.name, player.cards));
         localStorage.setItem('jugadorObjects', JSON.stringify(jugadorObjects));
-    }
+    };
 
     return (
         <form>

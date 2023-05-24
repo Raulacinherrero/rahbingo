@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './new-player.scss';
@@ -8,32 +7,27 @@ interface NewPlayerProps {
   id: number;
   name: string;
   cards: number;
-  onChange: (id: number, field: string, value: number) => void;
+  onChange: (id: number, field: string, value: number | string) => void;
 }
 
-const NewPlayer = (props: NewPlayerProps) => {
-  const { id, name, cards, onChange } = props;
+const NewPlayer: React.FC<NewPlayerProps> = ({ id, name, cards, onChange }) => {
   const [inputValue, setInputValue] = useState(name);
-  const [numericValue, setNumericValue] = useState(1); // Establecer 1 como valor inicial
+  const [numericValue, setNumericValue] = useState(cards);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.slice(0, 20);
+    const value = event.target.value;
     setInputValue(value);
-
-    const numericValue = parseInt(value, 10);
-    if (!isNaN(numericValue)) {
-      onChange(id, 'name', numericValue);
-    }
+    onChange(id, 'name', value);
   };
 
   const handleIncrement = () => {
-    const newValue = numericValue < 3 ? numericValue + 1 : numericValue;
+    const newValue = numericValue + 1;
     setNumericValue(newValue);
     onChange(id, 'cards', newValue);
   };
 
   const handleDecrement = () => {
-    const newValue = numericValue > 1 ? numericValue - 1 : numericValue;
+    const newValue = numericValue > 1 ? numericValue - 1 : 1;
     setNumericValue(newValue);
     onChange(id, 'cards', newValue);
   };
