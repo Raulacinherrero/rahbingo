@@ -9,6 +9,7 @@ const Players = () => {
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar />
       <HowManyPlayers />
+      <Link to="/prematch" >Nueva Partida</Link>
     </>
   );
 };
