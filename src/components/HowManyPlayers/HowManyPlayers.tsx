@@ -14,8 +14,8 @@ interface Player {
 
 const HowManyPlayers = () => {
     const [players, setPlayers] = useState<Player[]>([
-        { id: 0, name: 'Jugador 1', cards: 0 },
-        { id: 1, name: 'Jugador 2', cards: 0 }
+        { id: 0, name: 'Jugador 1', cards: 1 },
+        { id: 1, name: 'Jugador 2', cards: 1 }
     ]);
 
     const handleAddPlayer = () => {
@@ -24,7 +24,7 @@ const HowManyPlayers = () => {
         while (existingIds.includes(newId)) {
             newId++;
         }
-        const newPlayer = { id: newId, name: `Jugador ${newId + 1}`, cards: 0 };
+        const newPlayer = { id: newId, name: `Jugador ${newId + 1}`, cards: 1 };
         setPlayers([...players, newPlayer]);
     };
 
@@ -42,8 +42,8 @@ const HowManyPlayers = () => {
 
     const handleReady = () => {
         const jugadorObjects = players.map(player => new Jugador(player.name, player.cards));
-        //wip
-    };
+        localStorage.setItem('jugadorObjects', JSON.stringify(jugadorObjects));
+    }
 
     return (
         <form>
