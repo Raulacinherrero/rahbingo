@@ -15,15 +15,29 @@ class CartonBingo {
         this.bingo = false;
         CartonBingo.sumarIdC();
 
-        const linea1: NumBingo[] = [];
-        const linea2: NumBingo[] = [];
-        const linea3: NumBingo[] = [];
-
-        this.carton = [linea1, linea2, linea3];
+        this.carton = [
+            [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
+            [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
+            [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)]
+        ];
 
         const numeros: number[] = [];
 
+        numeros.push(0, 1, 2, 3, 4, 5, 6, 7, 8);
+
         let random: number;
+
+        for (let nLinea = 0; nLinea < this.carton.length; nLinea++) {
+            for (let n0 = 0; n0 < 4; n0++) {
+                random = Math.floor(Math.random() * numeros.length);
+                this.carton[nLinea][numeros[random]] = new NumBingo(0);
+                this.carton[nLinea][numeros[random]].siEsta();
+                numeros.splice(random, 1);
+            }
+
+            numeros.splice(0, numeros.length);
+            numeros.push(0, 1, 2, 3, 4, 5, 6, 7, 8);
+        }
 
         for (let nColumna = 0; nColumna < 9; nColumna++) {
             numeros.length = 0;
@@ -38,24 +52,18 @@ class CartonBingo {
             }
 
             this.carton.forEach((linea) => {
-                linea.push(new NumBingo(numeros[0]));
-                numeros.shift();
+                if (linea[nColumna].getNumB() === 0) {
+                    const random = Math.floor(Math.random() * numeros.length);
+                    numeros.splice(random, 1);
+                }
             });
-        }
 
-        numeros.splice(0, numeros.length);
-        numeros.push(0, 1, 2, 3, 4, 5, 6, 7, 8);
-
-        for (let nLinea = 0; nLinea < this.carton.length; nLinea++) {
-            for (let n0 = 0; n0 < 4; n0++) {
-                random = Math.floor(Math.random() * numeros.length);
-                this.carton[nLinea][numeros[random]] = new NumBingo(0);
-                this.carton[nLinea][numeros[random]].siEsta();
-                numeros.splice(random, 1);
-            }
-
-            numeros.splice(0, numeros.length);
-            numeros.push(0, 1, 2, 3, 4, 5, 6, 7, 8);
+            this.carton.forEach((linea) => {
+                if (linea[nColumna].getNumB() !== 0) {
+                    linea[nColumna] = new NumBingo(numeros[0]);
+                    numeros.shift();
+                }
+            });
         }
     }
 
