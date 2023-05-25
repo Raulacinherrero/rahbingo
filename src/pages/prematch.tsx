@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import ShowBoards from '../components/ShowBoards/ShowBoards';
+import SliderBoards from '../components/SliderBoards/SliderBoards';
 
 const PreMatch = () => {
   const [jugadorObjects, setJugadorObjects] = useState([]);
@@ -23,6 +24,7 @@ const PreMatch = () => {
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar />
+      {/* <SliderBoards jugadorObjects={jugadorObjects} /> */}
       <ShowBoards jugadorObjects={jugadorObjects} />
     </>
   );
