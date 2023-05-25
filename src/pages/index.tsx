@@ -5,7 +5,7 @@ const IndexPage = () => {
   return (
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
-      <Navbar />
+      <Navbar initialVisible={true} />
     </>
   );
 };

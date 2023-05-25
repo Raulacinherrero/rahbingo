@@ -6,7 +6,7 @@ const Players = () => {
   return (
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
-      <Navbar />
+      <Navbar initialVisible={true} />
       <HowManyPlayers />
     </>
   );
