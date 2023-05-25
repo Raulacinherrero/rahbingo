@@ -3,68 +3,72 @@
 .show-boards-container {
     margin: 1rem;
     margin-top: 3.2rem;
-    overflow-y: auto;
-    max-height: 410px;
 
-    .player-title {
-        color: $corpColor;
-        font-size: 3rem;
-        font-family: sans-serif;
-        font-weight: bold;
-        margin-bottom: 2rem;
-    }
+    &.scroll {
+        overflow-y: auto;
+        max-height: 410px;
 
-    .boards-container {
-        display: flex;
+        &::-webkit-scrollbar {
+            width: 12px;
+        }
 
-        .table-board {
-            margin: 0.5rem;
-            border: 0.3rem solid $corpColor2;
-            background-color: $corpColor2;
-            border-radius: 1rem;
-            border-collapse: separate;
+        &::-webkit-scrollbar-track {
+            background: $gris;
+            border-radius: 6px;
+        }
 
-            .board-number {
-                background-color: $blanco;
-                text-align: center;
-                width: 4rem;
-                height: 5rem;
-                border: 0.3rem solid $corpColor2;
-                border-radius: 1rem;
-                color: black;
-                font-size: 2.5rem;
-                font-family: sans-serif;
-                font-weight: bold;
+        &::-webkit-scrollbar-thumb {
+            background: $gris2;
+            border-radius: 6px;
+        }
 
-                &.zero {
-                    background-color: $corpColor;
-
-                    .logo {
-                        height: 3rem;
-                        margin-left: 0.15rem;
-                        margin-bottom: 0.4rem;
-                        display: flex;
-                    }
-                }
-            }
+        &::-webkit-scrollbar-thumb:hover {
+            background: $gris3;
         }
     }
+}
 
-    &::-webkit-scrollbar {
-        width: 12px;
+.player-title {
+    color: $corpColor;
+    font-size: 3rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+
+    .player-title {
+        text-align: center;
+        width: 65rem;
     }
+}
 
-    &::-webkit-scrollbar-track {
-        background: $gris;
-        border-radius: 6px;
+.next-button {
+    background-color: $corpColor;
+    border: none;
+    cursor: pointer;
+    border-radius: 2rem;
+    width: 3rem;
+    height: 3rem;
+    transition: all 0.2s ease-in-out;
+    color: $blanco;
+    font-size: 2rem;
+    transition: all 0.2s ease-in-out;
+    margin-top: 2.7rem;
+
+    &:hover {
+        background-color: $blanco;
+        color: $corpColor;
     }
+}
 
-    &::-webkit-scrollbar-thumb {
-        background: $gris2;
-        border-radius: 6px;
-    }
+.boards-container {
+    display: flex;
 
-    &::-webkit-scrollbar-thumb:hover {
-        background: $gris3;
+    &.slider {
+        justify-content: center;
     }
 }

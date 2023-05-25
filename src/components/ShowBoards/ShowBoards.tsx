@@ -1,36 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import BoardBingo from '../BoardBingo/BoardBingo';
 import './show-boards.scss';
-import logo from '../../images/logo.png';
 
-const ShowBoards = ({ jugadorObjects }: any) => {
-  const getBoardNumberContent = (num: number) => {
-    return num !== 0 ? num : <img src={logo} className='logo'/>;
+const ShowBoards = ({ jugadorObjects, style }) => {
+  const showBoardsContainerClass = style === 2 ? 'show-boards-container scroll' : 'show-boards-container';
+  
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? jugadorObjects.length - 1 : prevIndex - 1));
   };
 
-  const getBoardNumberClass = (num: number) => {
-    return num === 0 ? 'board-number zero' : 'board-number';
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === jugadorObjects.length - 1 ? 0 : prevIndex + 1));
   };
 
   return (
-    <div className='show-boards-container'>
+    <div className={showBoardsContainerClass}>
       {jugadorObjects.map((Jugador: any, index: number) => (
         <div key={index}>
-          <h2 className='player-title'>Cartones de {Jugador.nombreJugador}:</h2>
-          <div className='boards-container'>
-            {Jugador.cartonesJugador.map((Carton: any, index: number) => (
-              <table key={index} className='table-board'>
-                {Carton.carton.map((Linea: any, index: number) => (
-                  <tr key={index}>
-                    {Linea.map((Numero: any, index: number) => (
-                      <td key={index} className={getBoardNumberClass(Numero.num)}>
-                        {getBoardNumberContent(Numero.num)}
-                      </td>
-                    ))}
-                  </tr>
+          {style === 3 ? (
+            <div
+              key={index}
+              className={`player-container ${index === currentIndex ? 'active' : ''}`}
+              style={{ display: index === currentIndex ? 'block' : 'none' }}
+            >
+              <div className='title-container'>
+                <button onClick={handlePrevClick} className='next-button'>
+                  <FontAwesomeIcon icon={faAngleLeft} />
+                </button>
+                <h2 className='player-title'>Cartones de {Jugador.nombreJugador}</h2>
+                <button onClick={handleNextClick} className='next-button'>
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </button>
+              </div>
+              <div className='boards-container slider'>
+                {Jugador.cartonesJugador.map((Carton: any, index: number) => (
+                  <BoardBingo key={index} Carton={Carton} />
                 ))}
-              </table>
-            ))}
-          </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h2 className='player-title'>Cartones de {Jugador.nombreJugador}:</h2>
+              <div className='boards-container'>
+                {Jugador.cartonesJugador.map((Carton: any, index: number) => (
+                  <BoardBingo key={index} Carton={Carton} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       ))}
     </div>
