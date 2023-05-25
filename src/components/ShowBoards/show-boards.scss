@@ -1,7 +1,10 @@
 @import '../../styles/variables.scss';
 
 .show-boards-container {
-    padding: 1rem;
+    margin: 1rem;
+    margin-top: 3.2rem;
+    overflow-y: auto;
+    max-height: 410px;
 
     .player-title {
         color: $corpColor;
@@ -45,5 +48,23 @@
                 }
             }
         }
+    }
+
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $gris;
+        border-radius: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $gris2;
+        border-radius: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $gris3;
     }
 }
