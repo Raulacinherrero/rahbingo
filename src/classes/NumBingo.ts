@@ -11,6 +11,10 @@ class NumBingo {
         return this.num;
     }
 
+    getEsta(): boolean {
+        return this.esta;
+    }
+
     setNumB(numB: number): void {
         this.num = numB;
     }

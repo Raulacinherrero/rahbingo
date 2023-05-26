@@ -1,8 +1,7 @@
 import NumBingo from './NumBingo';
 
 class CartonBingo {
-    private idCarton: number;
-    private static idC: number = 0;
+    private idCarton: string;
     private idJugador: number;
     private linea: boolean;
     private bingo: boolean;
@@ -10,10 +9,8 @@ class CartonBingo {
 
     constructor(idJugador: number) {
         this.idJugador = idJugador;
-        this.idCarton = CartonBingo.idC;
         this.linea = false;
         this.bingo = false;
-        CartonBingo.sumarIdC();
 
         this.carton = [
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
@@ -65,21 +62,35 @@ class CartonBingo {
                 }
             });
         }
-    }
 
-    static sumarIdC(): void {
-        CartonBingo.idC++;
+        let BDstring = "";
+        this.carton.forEach((linea) => {
+            linea.forEach((number) => {
+                let num = number.getNumB().toString();
+                if (num.length === 1) {
+                    num = "0" + num;
+                }
+                BDstring += num;
+                if (number.getEsta()) {
+                    BDstring += "t";
+                } else {
+                    BDstring += "f";
+                }
+            });
+        });
+
+        this.idCarton = BDstring;
     }
 
     getidJugador(): number {
         return this.idJugador;
     }
 
-    setidJugador(nombreJugador: number): void {
-        this.idJugador = nombreJugador;
+    setidJugador(idJugador: number): void {
+        this.idJugador = idJugador;
     }
 
-    getBingo(): NumBingo[][] {
+    getCarton(): NumBingo[][] {
         return this.carton;
     }
 
@@ -98,8 +109,8 @@ class CartonBingo {
         return this.linea;
     }
 
-    setLinea(isLinea: boolean): void {
-        this.linea = isLinea;
+    setLinea(linea: boolean): void {
+        this.linea = linea;
     }
 
     isBingo(): boolean {
@@ -115,15 +126,15 @@ class CartonBingo {
         return this.bingo;
     }
 
-    setBingo(isBingo: boolean): void {
-        this.bingo = isBingo;
+    setBingo(bingo: boolean): void {
+        this.bingo = bingo;
     }
 
-    getIdCarton(): number {
+    getIdCarton(): string {
         return this.idCarton;
     }
 
-    setIdCarton(idCarton: number): void {
+    setIdCarton(idCarton: string): void {
         this.idCarton = idCarton;
     }
 
