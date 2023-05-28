@@ -4,22 +4,22 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import BoardBingo from '../BoardBingo/BoardBingo';
 import './show-boards.scss';
 
-const ShowBoards = ({ jugadorObjects, style }) => {
+const ShowBoards = ({ listaJugadores, style }) => {
   const showBoardsContainerClass = style === 2 ? 'show-boards-container scroll' : 'show-boards-container';
   
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? jugadorObjects.length - 1 : prevIndex - 1));
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? listaJugadores.length - 1 : prevIndex - 1));
   };
 
   const handleNextClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === jugadorObjects.length - 1 ? 0 : prevIndex + 1));
+    setCurrentIndex((prevIndex) => (prevIndex === listaJugadores.length - 1 ? 0 : prevIndex + 1));
   };
 
   return (
     <div className={showBoardsContainerClass}>
-      {jugadorObjects.map((Jugador: any, index: number) => (
+      {listaJugadores.map((Jugador: any, index: number) => (
         <div key={index}>
           {style === 3 ? (
             <div

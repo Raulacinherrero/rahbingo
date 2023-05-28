@@ -3,27 +3,27 @@ import Navbar from '../components/Navbar/Navbar';
 import ShowBoards from '../components/ShowBoards/ShowBoards';
 
 const PreMatch = () => {
-  const [jugadorObjects, setJugadorObjects] = useState([]);
+  const [datosPartida, setDatosPartida] = useState({ listaJugadores: [] });
 
   useEffect(() => {
-    const fetchJugadorObjects = () => {
+    const fetchDatosPartida = () => {
       try {
-        const jugadorObjectsString = localStorage.getItem('jugadorObjects');
-        const jugadorObjects = jugadorObjectsString ? JSON.parse(jugadorObjectsString) : [];
-        setJugadorObjects(jugadorObjects);
+        const datosPartidaString = localStorage.getItem('DatosPartida');
+        const datosPartida = datosPartidaString ? JSON.parse(datosPartidaString) : { listaJugadores: [] };
+        setDatosPartida(datosPartida);
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
-    fetchJugadorObjects();
+    fetchDatosPartida();
   }, []);
 
   return (
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar initialVisible={false} />
-      <ShowBoards jugadorObjects={jugadorObjects} style={3} />
+      <ShowBoards listaJugadores={datosPartida.listaJugadores} style={3} />
     </>
   );
 };
