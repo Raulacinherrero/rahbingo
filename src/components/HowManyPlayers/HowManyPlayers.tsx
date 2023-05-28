@@ -5,7 +5,6 @@ import NewPlayer from '../NewPlayer/NewPlayer';
 import Jugador from '../../classes/Jugador';
 import { Link } from 'gatsby';
 import './how-many-players.scss';
-import NumBingo from '../../classes/NumBingo';
 
 interface Player {
     id: number;
@@ -42,18 +41,12 @@ const HowManyPlayers = () => {
     };
 
     const handleReady = () => {
-        var NumerosBombo: NumBingo[] = [];
-        var idNumerosBombo: string = "";
-        for (var i = 1; i <= 90; i++) {
-            NumerosBombo.push(new NumBingo(i));
-            idNumerosBombo += "f";
-        }
+        var idNumerosBombo: string = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
         const Despistados: string[] = []
         const GanadoresLinea: string[] = []
         const GanadoresBingo: string[] = []
         const listaJugadores = players.map(player => new Jugador(player.name, player.cards));
         const DatosPartida = {
-            NumerosBombo: NumerosBombo,
             idNumerosBombo: idNumerosBombo,
             Despistados: Despistados,
             GanadoresLinea: GanadoresLinea,

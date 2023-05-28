@@ -5,14 +5,14 @@ class CartonBingo {
     private idJugador: number;
     private linea: boolean;
     private bingo: boolean;
-    private carton: NumBingo[][];
+    this: any;
 
     constructor(idJugador: number) {
         this.idJugador = idJugador;
         this.linea = false;
         this.bingo = false;
 
-        this.carton = [
+        var carton = [
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)]
@@ -24,11 +24,11 @@ class CartonBingo {
 
         let random: number;
 
-        for (let nLinea = 0; nLinea < this.carton.length; nLinea++) {
+        for (let nLinea = 0; nLinea < carton.length; nLinea++) {
             for (let n0 = 0; n0 < 4; n0++) {
                 random = Math.floor(Math.random() * numeros.length);
-                this.carton[nLinea][numeros[random]] = new NumBingo(0);
-                this.carton[nLinea][numeros[random]].siEsta();
+                carton[nLinea][numeros[random]] = new NumBingo(0);
+                carton[nLinea][numeros[random]].siEsta();
                 numeros.splice(random, 1);
             }
 
@@ -48,14 +48,14 @@ class CartonBingo {
                 numeros.splice(random, 1);
             }
 
-            this.carton.forEach((linea) => {
+            carton.forEach((linea) => {
                 if (linea[nColumna].getNumB() === 0) {
                     const random = Math.floor(Math.random() * numeros.length);
                     numeros.splice(random, 1);
                 }
             });
 
-            this.carton.forEach((linea) => {
+            carton.forEach((linea) => {
                 if (linea[nColumna].getNumB() !== 0) {
                     linea[nColumna] = new NumBingo(numeros[0]);
                     numeros.shift();
@@ -64,7 +64,7 @@ class CartonBingo {
         }
 
         let BDstring = "";
-        this.carton.forEach((linea) => {
+        carton.forEach((linea) => {
             linea.forEach((number) => {
                 let num = number.getNumB().toString();
                 if (num.length === 1) {
@@ -90,21 +90,51 @@ class CartonBingo {
         this.idJugador = idJugador;
     }
 
-    getCarton(): NumBingo[][] {
-        return this.carton;
+    static idToCarton(idCarton: string): [number, boolean][][] {
+        const numeros: string[] = idCarton.split(/t|f/).filter(Boolean);
+        const cartonJson: [number, boolean][][] = [];
+
+        for (let i = 0; i < numeros.length; i += 9) {
+            const bloqueResultado: [number, boolean][] = [];
+
+            for (let j = i; j < i + 9; j++) {
+                const numero = numeros[j] === "NaN" ? 0 : parseInt(numeros[j]);
+                const isLogo = numero === 0;
+
+                bloqueResultado.push([numero, isLogo]);
+            }
+
+            cartonJson.push(bloqueResultado);
+        }
+        return cartonJson;
     }
 
-    setCarton(carton: NumBingo[][]): void {
-        this.carton = carton;
+    static cartonToId(carton: [number, boolean][][]): string {
+        let idCarton = "";
+        carton.forEach((linea) => {
+            linea.forEach((number) => {
+                let num = number[0].toString();
+                if (num.length === 1) {
+                    num = "0" + num;
+                }
+                idCarton += num;
+                if (number[1]) {
+                    idCarton += "t";
+                } else {
+                    idCarton += "f";
+                }
+            });
+        });
+        return idCarton;
     }
 
     isLinea(nLinea: number): boolean {
         this.linea = true;
-        for (let num = 0; num < this.carton[nLinea].length; num++) {
+        for (let num = 0; num < this.this.idToCarton(this.idCarton)[nLinea].length; num++) {
             if (!this.linea) {
                 break;
             }
-            this.linea = this.carton[nLinea][num].isInBingo();
+            this.linea = this.this.idToCarton(this.idCarton)[nLinea][num].isInBingo();
         }
         return this.linea;
     }
@@ -115,12 +145,12 @@ class CartonBingo {
 
     isBingo(): boolean {
         this.bingo = true;
-        for (let nLinea = 0; nLinea < this.carton.length; nLinea++) {
-            for (let num = 0; num < this.carton[nLinea].length; num++) {
+        for (let nLinea = 0; nLinea < this.this.idToCarton(this.idCarton).length; nLinea++) {
+            for (let num = 0; num < this.this.idToCarton(this.idCarton)[nLinea].length; num++) {
                 if (!this.bingo) {
                     break;
                 }
-                this.bingo = this.carton[nLinea][num].isInBingo();
+                this.bingo = this.this.idToCarton(this.idCarton)[nLinea][num].isInBingo();
             }
         }
         return this.bingo;
@@ -144,10 +174,6 @@ class CartonBingo {
 
     setIdJugador(idJugador: number): void {
         this.idJugador = idJugador;
-    }
-
-    toString(): string {
-        return this.carton[0] + "\n" + this.carton[1] + "\n" + this.carton[2];
     }
 }
 

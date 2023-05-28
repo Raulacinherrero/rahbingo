@@ -1,8 +1,11 @@
 import React from 'react';
-import './board-bingo.scss';
+import CartonBingo from '../../classes/CartonBingo';
 import logo from '../../images/logo.png';
+import './board-bingo.scss';
 
 const BoardBingo = ({ Carton }: any) => {
+    const cartonJson = CartonBingo.idToCarton(Carton.idCarton);
+
     const getBoardNumberContent = (num: number) => {
         return num !== 0 ? num : <img src={logo} className='logo' />;
     };
@@ -13,15 +16,17 @@ const BoardBingo = ({ Carton }: any) => {
 
     return (
         <table className='table-board'>
-            {Carton.carton.map((Linea: any, index: number) => (
-                <tr key={index}>
-                    {Linea.map((Numero: any, index: number) => (
-                        <td key={index} className={getBoardNumberClass(Numero.num)}>
-                            {getBoardNumberContent(Numero.num)}
-                        </td>
-                    ))}
-                </tr>
-            ))}
+            <tbody>
+                {cartonJson.map((Linea: [number, boolean][], index: number) => (
+                    <tr key={index}>
+                        {Linea.map((Numero: any, index: number) => (
+                            <td key={index} className={getBoardNumberClass(Numero[0])}>
+                                {getBoardNumberContent(Numero[0])}
+                            </td>
+                        ))}
+                    </tr>
+                ))}
+            </tbody>
         </table>
     );
 };
