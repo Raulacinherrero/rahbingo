@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import BoardBingo from '../BoardBingo/BoardBingo';
+import { Link } from 'gatsby';
 import './show-boards.scss';
 
 const ShowBoards = ({ listaJugadores, style }) => {
@@ -54,6 +55,9 @@ const ShowBoards = ({ listaJugadores, style }) => {
           )}
         </div>
       ))}
+      <div className='submit-button-container'>
+          <Link to="/match" className='submit-button' >Listo</Link>
+      </div>
     </div>
   );
 };
