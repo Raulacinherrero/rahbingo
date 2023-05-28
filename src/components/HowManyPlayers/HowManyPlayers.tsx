@@ -42,6 +42,7 @@ const HowManyPlayers = () => {
 
     const handleReady = () => {
         var idNumerosBombo: string = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+        //var idNumerosBombo: string = "tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt";
         const Despistados: string[] = []
         const GanadoresLinea: string[] = []
         const GanadoresBingo: string[] = []
