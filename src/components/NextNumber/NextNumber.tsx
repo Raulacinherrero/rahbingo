@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import Bombo from '../Bombo/Bombo';
 import { Link } from 'gatsby';
+import CartonBingo from '../../classes/CartonBingo';
 import './next-number.scss';
 
 const NextNumber = ({ DatosPartida }) => {
@@ -14,6 +16,8 @@ const NextNumber = ({ DatosPartida }) => {
 
   const [numeroAleatorio, setNumeroAleatorio] = useState<number | null>(null);
 
+  const islinea = DatosPartida.GanadoresLinea?.length === 0;
+
   const generarNumeroAleatorio = () => {
     const numeroIndex = Math.floor(Math.random() * numerosArray.length);
     const numeroSeleccionado: number = numerosArray[numeroIndex];
@@ -23,15 +27,64 @@ const NextNumber = ({ DatosPartida }) => {
     nuevosDatosPartida[numeroSeleccionado - 1] = 't';
     const nuevosDatosPartidaString = nuevosDatosPartida.join('');
     DatosPartida.idNumerosBombo = nuevosDatosPartidaString;
-
+//
+    DatosPartida.listaJugadores?.forEach((jugador) => {
+      jugador.cartonesJugador.forEach((carton) => {
+        const cartonJson = CartonBingo.idToCarton(carton.idCarton);
+    
+        cartonJson?.forEach((linea) => {
+          linea?.forEach((numero) => {
+            if (numero[0] === numeroAleatorio) {
+              numero[1] = true;
+              console.log(jugador.nombreJugador+" tiene el numero "+numeroAleatorio);
+              console.log(numero[1]);
+              console.log(cartonJson)
+            }
+          });
+    
+          if (
+            CartonBingo.isLinea(linea) &&
+            !DatosPartida.DespistadosLinea.includes(jugador.idJugador) &&
+            !islinea
+          ) {
+            DatosPartida.DespistadosLinea.push(jugador.idJugador);
+          }
+        });
+    
+        if (CartonBingo.isBingo(carton.idCarton) && !DatosPartida.DespistadosBingo.includes(jugador.idJugador)) {
+          DatosPartida.DespistadosBingo.push(jugador.idJugador);
+        }
+    
+        carton.idCarton = CartonBingo.cartonToId(cartonJson);
+        console.log(carton.idCarton)
+      });
+    });
+//
     localStorage.setItem('DatosPartida', JSON.stringify(DatosPartida));
   };
 
+  if (DatosPartida.idNumerosBombo === 'f'.repeat(90)) {
+    generarNumeroAleatorio();
+  }
+
   return (
-    <div>
-      <h1>{numeroAleatorio}</h1>
-      <h1>{DatosPartida.idNumerosBombo}</h1>
-      <Link to="/match" onClick={generarNumeroAleatorio} >Generar número</Link>
+    <div className='next-number-container'>
+      <div className='bombo-container'>
+        <Bombo idNumerosBombo={DatosPartida.idNumerosBombo} />
+      </div>
+      <div className='content-container'>
+        <div className='number-container'>
+          <h1 className='number'>{numeroAleatorio}</h1>
+        </div>
+        <div className='button-container'>
+          <button className='button' onClick={generarNumeroAleatorio}>Siguiente número</button>
+          {islinea ? (
+            <Link to='/validator' className='button'>Cantar Línea</Link>
+          ) : (
+            <Link to='/validator' className='button'>Cantar Bingo</Link>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
