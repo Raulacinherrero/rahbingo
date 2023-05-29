@@ -42,13 +42,15 @@ const HowManyPlayers = () => {
 
     const handleReady = () => {
         var idNumerosBombo: string = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
-        const Despistados: string[] = []
+        const DespistadosLinea: string[] = []
+        const DespistadosBingo: string[] = []
         const GanadoresLinea: string[] = []
         const GanadoresBingo: string[] = []
         const listaJugadores = players.map(player => new Jugador(player.name, player.cards));
         const DatosPartida = {
             idNumerosBombo: idNumerosBombo,
-            Despistados: Despistados,
+            DespistadosLinea: DespistadosLinea,
+            DespistadosBingo: DespistadosBingo,
             GanadoresLinea: GanadoresLinea,
             GanadoresBingo: GanadoresBingo,
             listaJugadores: listaJugadores,
