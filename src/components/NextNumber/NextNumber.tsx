@@ -28,37 +28,37 @@ const NextNumber = ({ DatosPartida }) => {
     const nuevosDatosPartidaString = nuevosDatosPartida.join('');
     DatosPartida.idNumerosBombo = nuevosDatosPartidaString;
 //
-    DatosPartida.listaJugadores?.forEach((jugador) => {
-      jugador.cartonesJugador.forEach((carton) => {
-        const cartonJson = CartonBingo.idToCarton(carton.idCarton);
+    // DatosPartida.listaJugadores?.forEach((jugador) => {
+    //   jugador.cartonesJugador.forEach((carton) => {
+    //     const cartonJson = CartonBingo.idToCarton(carton.idCarton);
     
-        cartonJson?.forEach((linea) => {
-          linea?.forEach((numero) => {
-            if (numero[0] === numeroAleatorio) {
-              numero[1] = true;
-              console.log(jugador.nombreJugador+" tiene el numero "+numeroAleatorio);
-              console.log(numero[1]);
-              console.log(cartonJson)
-            }
-          });
+    //     cartonJson?.forEach((linea) => {
+    //       linea?.forEach((numero) => {
+    //         if (numero[0] === numeroAleatorio) {
+    //           numero[1] = true;
+    //           console.log(jugador.nombreJugador+" tiene el numero "+numeroAleatorio);
+    //           console.log(numero[1]);
+    //           console.log(cartonJson)
+    //         }
+    //       });
     
-          if (
-            CartonBingo.isLinea(linea) &&
-            !DatosPartida.DespistadosLinea.includes(jugador.idJugador) &&
-            !islinea
-          ) {
-            DatosPartida.DespistadosLinea.push(jugador.idJugador);
-          }
-        });
+    //       if (
+    //         CartonBingo.isLinea(linea) &&
+    //         !DatosPartida.DespistadosLinea.includes(jugador.idJugador) &&
+    //         !islinea
+    //       ) {
+    //         DatosPartida.DespistadosLinea.push(jugador.idJugador);
+    //       }
+    //     });
     
-        if (CartonBingo.isBingo(carton.idCarton) && !DatosPartida.DespistadosBingo.includes(jugador.idJugador)) {
-          DatosPartida.DespistadosBingo.push(jugador.idJugador);
-        }
+    //     if (CartonBingo.isBingo(carton.idCarton) && !DatosPartida.DespistadosBingo.includes(jugador.idJugador)) {
+    //       DatosPartida.DespistadosBingo.push(jugador.idJugador);
+    //     }
     
-        carton.idCarton = CartonBingo.cartonToId(cartonJson);
-        console.log(carton.idCarton)
-      });
-    });
+    //     carton.idCarton = CartonBingo.cartonToId(cartonJson);
+    //     console.log(carton.idCarton)
+    //   });
+    // });
 //
     localStorage.setItem('DatosPartida', JSON.stringify(DatosPartida));
   };
