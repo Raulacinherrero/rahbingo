@@ -1,13 +1,13 @@
 @import '../../styles/variables.scss';
 
-.table-board {
+.table-bombo {
     margin: 0.5rem;
     border: 0.3rem solid $corpColor2;
     background-color: $corpColor2;
     border-radius: 1rem;
     border-collapse: separate;
 
-    .board-number {
+    .bombo-number {
         background-color: $blanco;
         text-align: center;
         width: 4rem;

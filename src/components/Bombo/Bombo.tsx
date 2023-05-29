@@ -1,11 +1,9 @@
 import React from 'react';
 import logo from '../../images/logo.png';
+import './bombo.scss';
 
-interface BomboProps {
-  idNumerosBombo: string;
-}
+const Bombo = ({ idNumerosBombo }) => {
 
-const Bombo: React.FC<BomboProps> = ({ idNumerosBombo }) => {
   const characters = idNumerosBombo.split('');
 
   const tableData: { num: number; isTrue: boolean }[][] = [];
@@ -20,22 +18,22 @@ const Bombo: React.FC<BomboProps> = ({ idNumerosBombo }) => {
     }
   }
 
-  const getBoardNumberContent = (isTrue: boolean, num: number) => {
+  const getBomboNumberContent = (isTrue: boolean, num: number) => {
     return isTrue ? num : <img src={logo} className='logo' alt='Logo' />;
   };
 
-  const getBoardNumberClass = (isTrue: boolean) => {
-    return isTrue ? 'board-number' : 'board-number zero';
+  const getBomboNumberClass = (isTrue: boolean) => {
+    return isTrue ? 'bombo-number' : 'bombo-number zero';
   };
 
   return (
-    <table className='table-board'>
+    <table className='table-bombo'>
       <tbody>
         {tableData.map((row, rowIndex) => (
           <tr key={rowIndex}>
             {row.map((cell, cellIndex) => (
-              <td key={cellIndex} className={getBoardNumberClass(cell.isTrue)}>
-                {getBoardNumberContent(cell.isTrue, cell.num)}
+              <td key={cellIndex} className={getBomboNumberClass(cell.isTrue)}>
+                {getBomboNumberContent(cell.isTrue, cell.num)}
               </td>
             ))}
           </tr>
