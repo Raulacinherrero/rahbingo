@@ -1,1 +1,44 @@
 @import '../../styles/variables.scss';
+
+.next-number-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .bombo-container {
+        width: 50%;
+    }
+
+    .content-container {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .number {
+            font-size: 30rem;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        .button {
+            background-color: $corpColor;
+            color: $blanco;
+            font-size: 2rem;
+            font-family: sans-serif;
+            border: none;
+            border-radius: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem;
+
+            &:active {
+                background-color: $corpColor2;
+            }
+        }
+    }
+}

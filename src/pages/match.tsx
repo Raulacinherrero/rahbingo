@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar/Navbar';
-import Bombo from '../components/Bombo/Bombo';
-import NextNumber from '../components/NextNumber/NextNumber';
+import Number from '../components/NextNumber/NextNumber';
 
 const Match = () => {
-  const [datosPartida, setDatosPartida] = useState({ idNumerosBombo: '' });
+  const [datosPartida, setDatosPartida] = useState({ idNumerosBombo: '', GanadoresLinea: [], GanadoresBingo: [], listaJugadores: [], DespistadosLinea: [], DespistadosBingo: [] });
 
   useEffect(() => {
     const fetchDatosPartida = () => {
       try {
         const datosPartidaString = localStorage.getItem('DatosPartida');
-        const datosPartida = datosPartidaString ? JSON.parse(datosPartidaString) : { idNumerosBombo: '' };
+        const datosPartida = datosPartidaString ? JSON.parse(datosPartidaString) : { idNumerosBombo: '', GanadoresLinea: [], GanadoresBingo: [], listaJugadores: [], DespistadosLinea: [], DespistadosBingo: [] };
         setDatosPartida(datosPartida);
       } catch (error) {
         console.error("Error:", error);
@@ -20,12 +19,12 @@ const Match = () => {
     fetchDatosPartida();
   }, []);
 
+
   return (
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar initialVisible={false} />
-      <Bombo idNumerosBombo={datosPartida.idNumerosBombo} />
-      <NextNumber DatosPartida={datosPartida} />
+      <Number DatosPartida={datosPartida} />
     </>
   );
 };
