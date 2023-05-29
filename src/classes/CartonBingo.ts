@@ -111,50 +111,53 @@ class CartonBingo {
 
     static cartonToId(carton: [number, boolean][][]): string {
         let idCarton = "";
-        carton.forEach((linea) => {
-            linea.forEach((number) => {
-                let num = number[0].toString();
-                if (num.length === 1) {
-                    num = "0" + num;
-                }
-                idCarton += num;
-                if (number[1]) {
-                    idCarton += "t";
-                } else {
-                    idCarton += "f";
-                }
-            });
-        });
-        return idCarton;
-    }
-
-    isLinea(nLinea: number): boolean {
-        this.linea = true;
-        for (let num = 0; num < this.this.idToCarton(this.idCarton)[nLinea].length; num++) {
-            if (!this.linea) {
-                break;
+        for (const linea of carton) {
+          for (const number of linea) {
+            let num = number[0].toString();
+            if (num.length === 1) {
+              num = "0" + num;
             }
-            this.linea = this.this.idToCarton(this.idCarton)[nLinea][num].isInBingo();
+            idCarton += num;
+            if (number[1]) {
+              idCarton += "t";
+            } else {
+              idCarton += "f";
+            }
+          }
         }
-        return this.linea;
-    }
+        return idCarton;
+      }
+      
+
+    static isLinea(nLinea: [number, boolean][]): boolean {
+        let linea = true;
+        for (const num of nLinea) {
+          if (!linea) {
+            return false;
+          }
+          linea = num[1];
+        }
+        return linea;
+      }
+      
 
     setLinea(linea: boolean): void {
         this.linea = linea;
     }
 
-    isBingo(): boolean {
-        this.bingo = true;
-        for (let nLinea = 0; nLinea < this.this.idToCarton(this.idCarton).length; nLinea++) {
-            for (let num = 0; num < this.this.idToCarton(this.idCarton)[nLinea].length; num++) {
-                if (!this.bingo) {
-                    break;
-                }
-                this.bingo = this.this.idToCarton(this.idCarton)[nLinea][num].isInBingo();
+    static isBingo(carton: [number, boolean][][]): boolean {
+        let bingo = true;
+        for (const Linea of carton) {
+          for (const num of Linea) {
+            if (!bingo) {
+              return false;
             }
+            bingo = num[1];
+          }
         }
-        return this.bingo;
-    }
+        return bingo;
+      }
+      
 
     setBingo(bingo: boolean): void {
         this.bingo = bingo;
