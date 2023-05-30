@@ -65,37 +65,49 @@ const HowManyPlayers = () => {
 
         var idJugador = "";
         var idCarton = "";
-
-        const DatosPartida = {
-            idPartida: idPartida,
-            idNumerosBombo: idNumerosBombo,
-            guardarPartida: false
-        };
-
-        uploadCollection("DatosPartida",idPartida, DatosPartida);
+        const idJugadoresArray = [];
 
         listaJugadores.forEach((jugador) => {
-            idJugador = idPartida+"_"+jugador.getIdJugador().toString();
-            const DatosJugador = {
-                idPartida: idPartida,
-                idJugador: idJugador,
-                nombreJugador: jugador.getNombreJugador()
-            }
-            uploadCollection("ListaJugadores",idJugador, DatosJugador);
+            const idCartonesArray = [];
+            idJugador = idPartida+":J"+jugador.getIdJugador().toString();
+            idJugadoresArray.push(idJugador);
             const CartonesJugador: CartonBingo[] = jugador.getCartonesJugador();
             CartonesJugador.forEach(carton => {
-                idCarton = idJugador+":"+carton.getCarton().toString();
+                idCarton = idJugador+":C"+carton.getIdCarton().toString();
+                idCartonesArray.push(idCarton);
                 const DatosCarton = {
                     idPartida: idPartida,
-                    idJugador: jugador.getIdJugador(),
+                    idJugador: idJugador,
                     carton: carton.getCarton(),
                     idCarton: idCarton,
                     isLinea: false,
                     isBingo: false
                 }
-                uploadCollection("CartonesJugador",idCarton, DatosCarton);
+                uploadCollection("CartonesJugador", idCarton, DatosCarton);
             });
+            const IdCartonesString = idCartonesArray.join("-");
+            const DatosJugador = {
+                idPartida: idPartida,
+                idJugador: idJugador,
+                nombreJugador: jugador.getNombreJugador(),
+                idCartonesString: IdCartonesString
+            }
+            uploadCollection("ListaJugadores", idJugador, DatosJugador);
         });
+
+        const idJugadoresString = idJugadoresArray.join("-");
+        const DatosPartida = {
+            idPartida: idPartida,
+            idNumerosBombo: idNumerosBombo,
+            idJugadoresString: idJugadoresString,
+            idDespistadosLinea: "",
+            idDespistadosBingo: "",
+            idGanadoresLinea: "",
+            idGanadoresBingo: "",
+            guardarPartida: false
+        };
+
+        uploadCollection("DatosPartida",idPartida, DatosPartida);
     };
 
     return (

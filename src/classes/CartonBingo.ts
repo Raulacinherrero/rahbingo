@@ -1,6 +1,8 @@
 import NumBingo from './NumBingo';
 
 class CartonBingo {
+    private idCarton: number;
+    private static idC: number = 0;
     private carton: string;
     private idJugador: number;
     private linea: boolean;
@@ -8,6 +10,7 @@ class CartonBingo {
     this: any;
 
     constructor(idJugador: number) {
+        this.idCarton = CartonBingo.idC;
         this.idJugador = idJugador;
         this.linea = false;
         this.bingo = false;
@@ -80,6 +83,14 @@ class CartonBingo {
         });
 
         this.carton = BDstring;
+    }
+
+    private static sumarIdC(): void {
+        CartonBingo.idC++;
+    }
+
+    getIdCarton(): number {
+        return this.idCarton;
     }
 
     getidJugador(): number {
