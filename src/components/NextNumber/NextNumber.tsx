@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { uploadCollection } from "../../firebase";
+import { actualizarCampoDocumento } from "../../firebase";
 import { Link } from 'gatsby';
 import CartonBingo from '../../classes/CartonBingo';
 import Bombo from '../Bombo/Bombo';
 import './next-number.scss';
 
-const NextNumber = ({ DatosPartida, setDatosPartida }) => {
+const NextNumber = ({ DatosPartida }) => {
   const numerosBombo = DatosPartida?.idNumerosBombo || '';
   const numerosArray: number[] = [];
 
@@ -23,19 +23,14 @@ const NextNumber = ({ DatosPartida, setDatosPartida }) => {
     const numeroIndex = Math.floor(Math.random() * numerosArray.length);
     const numeroSeleccionado = numerosArray[numeroIndex];
     setNumeroAleatorio(numeroSeleccionado);
-
+  
     const nuevosDatosPartida = [...numerosBombo];
     nuevosDatosPartida[numeroSeleccionado - 1] = 't';
     const nuevosDatosPartidaString = nuevosDatosPartida.join('');
-    
-    const updatedDatosPartida = {
-      ...DatosPartida,
-      idNumerosBombo: nuevosDatosPartidaString
-    };
 
-    setDatosPartida(updatedDatosPartida);
-    uploadCollection("DatosPartida", DatosPartida.idPartida, updatedDatosPartida);
+    actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "idNumerosBombo", nuevosDatosPartidaString);
   };
+  
 
   return (
     <div className='next-number-container'>

@@ -51,7 +51,7 @@ const Match = () => {
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar initialVisible={false} />
       {DatosPartida && DatosPartida.ListaJugadores && (
-        <NextNumber DatosPartida={DatosPartida} setDatosPartida={setDatosPartida} />
+        <NextNumber DatosPartida={DatosPartida} />
       )}
     </>
   );
