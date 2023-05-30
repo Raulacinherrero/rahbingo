@@ -36,6 +36,25 @@ export function uploadCollection(coleccion, id, data) {
     });
 }
 
+export async function actualizarCampoDocumento(coleccion, id, campo, valor) {
+  try {
+    const documentoRef = doc(db, coleccion, id);
+
+    const documentoSnapshot = await getDoc(documentoRef);
+    if (!documentoSnapshot.exists()) {
+      console.log("El documento no existe");
+      return;
+    }
+
+    await setDoc(documentoRef, { [campo]: valor }, { merge: true });
+
+    console.log("Campo actualizado exitosamente:", campo);
+
+  } catch (error) {
+    console.error("Error al actualizar campo del documento:", error);
+  }
+}
+
 export async function obtenerDatosDocumento(coleccion, id) {
   try {
     const documentoRef = doc(db, coleccion, id);
