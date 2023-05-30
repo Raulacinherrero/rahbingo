@@ -25,8 +25,8 @@ const PreMatch = () => {
   useEffect(() => {
     const fetchDatosPartida = async () => {
       try {
-        const DatosPartida = await obtenerDatosDocumento("DatosPartida", idPartida);
-        if (DatosPartida) {
+        const datosPartida = await obtenerDatosDocumento("DatosPartida", idPartida);
+        if (datosPartida) {
           const {
             idJugadoresString,
             idDespistadosLinea,
@@ -34,7 +34,7 @@ const PreMatch = () => {
             idGanadoresLinea,
             idGanadoresBingo,
             ...rest
-          } = DatosPartida;
+          } = datosPartida;
 
           const DespistadosLinea = idDespistadosLinea ? idDespistadosLinea.split('-') : [];
           const DespistadosBingo = idDespistadosBingo ? idDespistadosBingo.split('-') : [];
@@ -46,8 +46,7 @@ const PreMatch = () => {
             DespistadosLinea,
             DespistadosBingo,
             GanadoresLinea,
-            GanadoresBingo,
-            ListaJugadores
+            GanadoresBingo
           });
 
           if (idJugadoresString) {
@@ -61,7 +60,7 @@ const PreMatch = () => {
     };
 
     fetchDatosPartida();
-  }, [idPartida, ListaJugadores]);
+  }, [idPartida]);
 
   useEffect(() => {
     const fetchJugadoresAndCartones = async () => {
@@ -85,7 +84,9 @@ const PreMatch = () => {
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar initialVisible={false} />
-      {DatosPartida && <ShowBoards listaJugadores={DatosPartida.ListaJugadores} style={3} />}
+      <ShowBoards listaJugadores={ListaJugadores} style={3} />
+      {/* <pre>{JSON.stringify(DatosPartida, null, 2)}</pre>
+      <pre>{JSON.stringify(ListaJugadores, null, 2)}</pre> */}
     </>
   );
 };
