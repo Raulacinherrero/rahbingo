@@ -85,7 +85,7 @@ const PreMatch = () => {
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar initialVisible={false} />
-      <ShowBoards listaJugadores={ListaJugadores} style={3} />
+      {DatosPartida && <ShowBoards listaJugadores={DatosPartida.ListaJugadores} style={3} />}
     </>
   );
 };
