@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import Bombo from '../Bombo/Bombo';
+import { uploadCollection } from "../../firebase";
 import { Link } from 'gatsby';
 import CartonBingo from '../../classes/CartonBingo';
+import Bombo from '../Bombo/Bombo';
 import './next-number.scss';
 
-const NextNumber = ({ DatosPartida }) => {
-  const numerosBombo = DatosPartida.idNumerosBombo;
+const NextNumber = ({ DatosPartida, setDatosPartida }) => {
+  const numerosBombo = DatosPartida?.idNumerosBombo || '';
   const numerosArray: number[] = [];
 
   for (let i = 0; i < numerosBombo.length; i++) {
@@ -16,18 +17,25 @@ const NextNumber = ({ DatosPartida }) => {
 
   const [numeroAleatorio, setNumeroAleatorio] = useState<number | null>(null);
 
-  const islinea = DatosPartida.GanadoresLinea?.length === 0;
+  const islinea = DatosPartida?.GanadoresLinea?.length === 0;
 
   const generarNumeroAleatorio = () => {
     const numeroIndex = Math.floor(Math.random() * numerosArray.length);
-    const numeroSeleccionado: number = numerosArray[numeroIndex];
+    const numeroSeleccionado = numerosArray[numeroIndex];
     setNumeroAleatorio(numeroSeleccionado);
 
     const nuevosDatosPartida = [...numerosBombo];
     nuevosDatosPartida[numeroSeleccionado - 1] = 't';
     const nuevosDatosPartidaString = nuevosDatosPartida.join('');
-    DatosPartida.idNumerosBombo = nuevosDatosPartidaString;
-//
+    
+    const updatedDatosPartida = {
+      ...DatosPartida,
+      idNumerosBombo: nuevosDatosPartidaString
+    };
+
+    setDatosPartida(updatedDatosPartida);
+    uploadCollection("DatosPartida", DatosPartida.idPartida, updatedDatosPartida);
+
     // DatosPartida.listaJugadores?.forEach((jugador) => {
     //   jugador.cartonesJugador.forEach((carton) => {
     //     const cartonJson = CartonBingo.idToCarton(carton.idCarton);
@@ -59,18 +67,14 @@ const NextNumber = ({ DatosPartida }) => {
     //     console.log(carton.idCarton)
     //   });
     // });
-//
-    localStorage.setItem('DatosPartida', JSON.stringify(DatosPartida));
-  };
 
-  if (DatosPartida.idNumerosBombo === 'f'.repeat(90)) {
-    generarNumeroAleatorio();
-  }
+    // localStorage.setItem('DatosPartida', JSON.stringify(DatosPartida));
+  };
 
   return (
     <div className='next-number-container'>
       <div className='bombo-container'>
-        <Bombo idNumerosBombo={DatosPartida.idNumerosBombo} />
+        <Bombo idNumerosBombo={numerosBombo} />
       </div>
       <div className='content-container'>
         <div className='number-container'>
