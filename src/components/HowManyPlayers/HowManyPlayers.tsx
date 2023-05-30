@@ -83,7 +83,7 @@ const HowManyPlayers = () => {
             const DatosJugador = {
                 idJugador: idJugador,
                 nombreJugador: jugador.getNombreJugador(),
-                idCartonesString: IdCartonesString
+                CartonesJugador: idCartonesArray
             }
             uploadCollection("ListaJugadores", idJugador, DatosJugador);
         });
@@ -92,12 +92,11 @@ const HowManyPlayers = () => {
         const DatosPartida = {
             idPartida: idPartida,
             idNumerosBombo: idNumerosBombo,
-            idJugadoresString: idJugadoresString,
-            idDespistadosLinea: "",
-            idDespistadosBingo: "",
-            idGanadoresLinea: "",
-            idGanadoresBingo: "",
-            guardarPartida: false
+            ListaJugadores: idJugadoresArray,
+            idDespistadosLinea: [],
+            idDespistadosBingo: [],
+            idGanadoresLinea: [],
+            idGanadoresBingo: []
         };
 
         uploadCollection("DatosPartida",idPartida, DatosPartida);
