@@ -4,7 +4,7 @@ import logo from '../../images/logo.png';
 import './board-bingo.scss';
 
 const BoardBingo = ({ Carton }: any) => {
-    const cartonJson = CartonBingo.idToCarton(Carton.idCarton);
+    const cartonJson = CartonBingo.idToCarton(Carton.carton);
 
     const getBoardNumberContent = (num: number) => {
         return num !== 0 ? num : <img src={logo} className='logo' />;
