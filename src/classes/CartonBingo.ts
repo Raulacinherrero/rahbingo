@@ -14,6 +14,7 @@ class CartonBingo {
         this.idJugador = idJugador;
         this.linea = false;
         this.bingo = false;
+        CartonBingo.sumarIdC();
 
         var carton_ = [
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
