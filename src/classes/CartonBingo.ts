@@ -1,7 +1,7 @@
 import NumBingo from './NumBingo';
 
 class CartonBingo {
-    private idCarton: string;
+    private carton: string;
     private idJugador: number;
     private linea: boolean;
     private bingo: boolean;
@@ -12,7 +12,7 @@ class CartonBingo {
         this.linea = false;
         this.bingo = false;
 
-        var carton = [
+        var carton_ = [
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)],
             [new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1), new NumBingo(-1)]
@@ -24,11 +24,11 @@ class CartonBingo {
 
         let random: number;
 
-        for (let nLinea = 0; nLinea < carton.length; nLinea++) {
+        for (let nLinea = 0; nLinea < carton_.length; nLinea++) {
             for (let n0 = 0; n0 < 4; n0++) {
                 random = Math.floor(Math.random() * numeros.length);
-                carton[nLinea][numeros[random]] = new NumBingo(0);
-                carton[nLinea][numeros[random]].siEsta();
+                carton_[nLinea][numeros[random]] = new NumBingo(0);
+                carton_[nLinea][numeros[random]].siEsta();
                 numeros.splice(random, 1);
             }
 
@@ -48,14 +48,14 @@ class CartonBingo {
                 numeros.splice(random, 1);
             }
 
-            carton.forEach((linea) => {
+            carton_.forEach((linea) => {
                 if (linea[nColumna].getNumB() === 0) {
                     const random = Math.floor(Math.random() * numeros.length);
                     numeros.splice(random, 1);
                 }
             });
 
-            carton.forEach((linea) => {
+            carton_.forEach((linea) => {
                 if (linea[nColumna].getNumB() !== 0) {
                     linea[nColumna] = new NumBingo(numeros[0]);
                     numeros.shift();
@@ -64,7 +64,7 @@ class CartonBingo {
         }
 
         let BDstring = "";
-        carton.forEach((linea) => {
+        carton_.forEach((linea) => {
             linea.forEach((number) => {
                 let num = number.getNumB().toString();
                 if (num.length === 1) {
@@ -79,7 +79,7 @@ class CartonBingo {
             });
         });
 
-        this.idCarton = BDstring;
+        this.carton = BDstring;
     }
 
     getidJugador(): number {
@@ -163,12 +163,12 @@ class CartonBingo {
         this.bingo = bingo;
     }
 
-    getIdCarton(): string {
-        return this.idCarton;
+    getCarton(): string {
+        return this.carton;
     }
 
-    setIdCarton(idCarton: string): void {
-        this.idCarton = idCarton;
+    setCarton(carton: string): void {
+        this.carton = carton;
     }
 
     getIdJugador(): number {

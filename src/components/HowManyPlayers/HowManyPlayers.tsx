@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { uploadCollection } from "../../firebase";
 import NewPlayer from '../NewPlayer/NewPlayer';
 import Jugador from '../../classes/Jugador';
 import { Link } from 'gatsby';
 import './how-many-players.scss';
+import CartonBingo from '../../classes/CartonBingo';
 
 interface Player {
     id: number;
@@ -13,6 +15,7 @@ interface Player {
 }
 
 const HowManyPlayers = () => {
+
     const [players, setPlayers] = useState<Player[]>([
         { id: 0, name: 'Jugador 1', cards: 1 },
         { id: 1, name: 'Jugador 2', cards: 1 }
@@ -47,15 +50,52 @@ const HowManyPlayers = () => {
         const GanadoresLinea: string[] = []
         const GanadoresBingo: string[] = []
         const listaJugadores = players.map(player => new Jugador(player.name, player.cards));
+
+        const fechaActual = new Date();
+        const dia = fechaActual.getDate().toString().padStart(2, '0');
+        const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0');
+        const anio = fechaActual.getFullYear();
+        const horas = fechaActual.getHours().toString().padStart(2, '0');
+        const minutos = fechaActual.getMinutes().toString().padStart(2, '0');
+        const segundos = fechaActual.getSeconds().toString().padStart(2, '0');
+
+        const numeroCadena = (Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000).toString().padStart(4, "0");
+
+        const idPartida = "P" + dia + mes + anio + horas + minutos + segundos + "RAH" + numeroCadena;
+
+        var idJugador = "";
+        var idCarton = "";
+
         const DatosPartida = {
+            idPartida: idPartida,
             idNumerosBombo: idNumerosBombo,
-            DespistadosLinea: DespistadosLinea,
-            DespistadosBingo: DespistadosBingo,
-            GanadoresLinea: GanadoresLinea,
-            GanadoresBingo: GanadoresBingo,
-            listaJugadores: listaJugadores,
-        }
-        localStorage.setItem('DatosPartida', JSON.stringify(DatosPartida));
+            guardarPartida: false
+        };
+
+        uploadCollection("DatosPartida",idPartida, DatosPartida);
+
+        listaJugadores.forEach((jugador) => {
+            idJugador = idPartida+"_"+jugador.getIdJugador().toString();
+            const DatosJugador = {
+                idPartida: idPartida,
+                idJugador: idJugador,
+                nombreJugador: jugador.getNombreJugador()
+            }
+            uploadCollection("ListaJugadores",idJugador, DatosJugador);
+            const CartonesJugador: CartonBingo[] = jugador.getCartonesJugador();
+            CartonesJugador.forEach(carton => {
+                idCarton = idJugador+":"+carton.getCarton().toString();
+                const DatosCarton = {
+                    idPartida: idPartida,
+                    idJugador: jugador.getIdJugador(),
+                    carton: carton.getCarton(),
+                    idCarton: idCarton,
+                    isLinea: false,
+                    isBingo: false
+                }
+                uploadCollection("CartonesJugador",idCarton, DatosCarton);
+            });
+        });
     };
 
     return (
