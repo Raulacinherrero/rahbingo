@@ -72,8 +72,6 @@ const HowManyPlayers = () => {
                 idCarton = idJugador+":C"+carton.getIdCarton().toString();
                 idCartonesArray.push(idCarton);
                 const DatosCarton = {
-                    idPartida: idPartida,
-                    idJugador: idJugador,
                     carton: carton.getCarton(),
                     idCarton: idCarton,
                     isLinea: false,
@@ -83,7 +81,6 @@ const HowManyPlayers = () => {
             });
             const IdCartonesString = idCartonesArray.join("-");
             const DatosJugador = {
-                idPartida: idPartida,
                 idJugador: idJugador,
                 nombreJugador: jugador.getNombreJugador(),
                 idCartonesString: IdCartonesString
@@ -104,6 +101,8 @@ const HowManyPlayers = () => {
         };
 
         uploadCollection("DatosPartida",idPartida, DatosPartida);
+
+        localStorage.setItem('idPartida', idPartida);
     };
 
     return (
