@@ -45,10 +45,6 @@ const HowManyPlayers = () => {
 
     const handleReady = () => {
         var idNumerosBombo: string = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
-        const DespistadosLinea: string[] = []
-        const DespistadosBingo: string[] = []
-        const GanadoresLinea: string[] = []
-        const GanadoresBingo: string[] = []
         const listaJugadores = players.map(player => new Jugador(player.name, player.cards));
 
         const fechaActual = new Date();
