@@ -30,5 +30,10 @@
                 display: flex;
             }
         }
+
+        &.mobile {
+            background-image: url('../../images/icono-azul.svg');
+            background-position: center;
+        }
     }
 }

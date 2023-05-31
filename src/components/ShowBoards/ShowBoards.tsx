@@ -65,7 +65,7 @@ const ShowBoards = ({ DatosPartida, style }) => {
               </div>
               <div className='boards-container slider'>
                 {Jugador.CartonesJugador.map((Carton: any, index: number) => (
-                  <BoardBingo key={index} Carton={Carton} />
+                  <BoardBingo key={index} Carton={Carton} mobile={false}/>
                 ))}
               </div>
             </div>
@@ -74,7 +74,7 @@ const ShowBoards = ({ DatosPartida, style }) => {
               <h2 className='player-title'>Cartones de {Jugador.nombreJugador}:</h2>
               <div className='boards-container'>
                 {Jugador.CartonesJugador.map((Carton: any, index: number) => (
-                  <BoardBingo key={index} Carton={Carton} />
+                  <BoardBingo key={index} Carton={Carton} mobile={false}/>
                 ))}
               </div>
             </>
