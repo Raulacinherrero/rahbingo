@@ -39,7 +39,24 @@ const MatchPlayers = ({ params }) => {
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       {ListaJugadores && ListaJugadores.map((Jugador) => (
-        <Link to={`/player-boards/${Jugador.idJugador}`} key={Jugador.idJugador}>
+        <Link
+          to={`/player-boards/${Jugador.idJugador}`}
+          key={Jugador.idJugador}
+          style={{
+            backgroundColor: 'hsl(214, 73%, 65%)',
+            color: '#fff',
+            fontSize: '2rem',
+            fontFamily: 'sans-serif',
+            border: 'none',
+            borderRadius: '2rem',
+            padding: '1rem',
+            cursor: 'pointer',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: '1rem'
+          }}
+        >
           {Jugador.nombreJugador}
         </Link>
       ))}

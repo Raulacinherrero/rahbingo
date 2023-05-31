@@ -30,9 +30,11 @@ const PlayerBoards = ({ params }) => {
   return (
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
-      {cartonesJugador.map((Carton) => (
-        <BoardBingo key={Carton.idCarton} Carton={Carton} />
-      ))}
+      <div style={{ width: '100%' }}>
+        {cartonesJugador.map((Carton) => (
+          <BoardBingo key={Carton.idCarton} Carton={Carton} />
+        ))}
+      </div>
     </>
   );
 };
