@@ -1,0 +1,55 @@
+@import '../../styles/variables.scss';
+
+.title {
+    font-weight: bold;
+    padding: 0.5rem;
+    font-size: 3rem;
+    font-family: sans-serif;
+    color: $corpColor;
+    text-align: center;
+    margin: 2rem;
+    margin-top: 10rem;
+}
+
+.ID-label {
+    margin-left: 28rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 4rem;
+
+    .ID-imput{
+        margin-left: 2rem;
+        border-radius: 3rem;
+        font-weight: bold;
+        width: 45rem;
+        padding: 0.5rem;
+        font-size: 3rem;
+        border: 0.2rem solid $corpColor;
+        transition: border-color 0.2s ease-in-out;
+        font-family: sans-serif;
+        color: $corpColor;
+        text-align: center;
+
+        &:focus {
+            outline: none;
+            border-color: $corpColor;
+        }
+    }
+}
+
+.button {
+    margin-left: 3rem;
+    background-color: $corpColor;
+    color: $blanco;
+    font-size: 2rem;
+    font-family: sans-serif;
+    border: none;
+    border-radius: 3rem;
+    padding: 1rem 2rem;
+    height: 5rem;
+    cursor: pointer;
+
+    &:active {
+        background-color: $corpColor2;
+    }
+}
