@@ -103,23 +103,24 @@ class CartonBingo {
     }
 
     static idToCarton(idCarton: string): [number, boolean][][] {
-        const numeros: string[] = idCarton.split(/t|f/).filter(Boolean);
         const cartonJson: [number, boolean][][] = [];
-
-        for (let i = 0; i < numeros.length; i += 9) {
-            const bloqueResultado: [number, boolean][] = [];
-
-            for (let j = i; j < i + 9; j++) {
-                const numero = numeros[j] === "NaN" ? 0 : parseInt(numeros[j]);
-                const isLogo = numero === 0;
-
-                bloqueResultado.push([numero, isLogo]);
-            }
-
-            cartonJson.push(bloqueResultado);
+        
+        let subarray: [number, boolean][] = [];
+        for (let i = 0; i < idCarton.length; i += 3) {
+          const substring = idCarton.substr(i, 3);
+          const intValue = Number(substring.substr(0, 2));
+          const boolValue = substring[2] === "t" ? true : false;
+          
+          subarray.push([intValue, boolValue]);
+          
+          if (subarray.length === 9 || i === idCarton.length - 3) {
+            cartonJson.push(subarray);
+            subarray = [];
+          }
         }
+        
         return cartonJson;
-    }
+      }
 
     static cartonToId(carton: [number, boolean][][]): string {
         let idCarton = "";
