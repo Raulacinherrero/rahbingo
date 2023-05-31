@@ -33,7 +33,9 @@
 
         &.mobile {
             background-image: url('../../images/icono-azul.svg');
+            background-size: 70px;
             background-position: center;
+            background-repeat: no-repeat;
         }
     }
 }
