@@ -66,7 +66,7 @@ const NextNumber = ({ DatosPartida }) => {
 
           });
 
-          if (CartonBingo.isBingo(Carton) && !DespistadosBingo.includes(jugador.idJugador)) {
+          if (CartonBingo.isBingo(cartonJson) && !DespistadosBingo.includes(jugador.idJugador)) {
             console.error(jugador.nombreJugador + "tiene bingo")
             DespistadosBingo.push(jugador.idJugador);
             await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", DatosPartida.DespistadosBingo);
@@ -80,7 +80,7 @@ const NextNumber = ({ DatosPartida }) => {
               return [numero[0], numero[1]];
             })
           );
-          
+
           Carton = CartonBingo.cartonToId(updatedCartonJson);
           await actualizarCampoDocumento("CartonesJugador", carton.idCarton, "carton", Carton);
         });
