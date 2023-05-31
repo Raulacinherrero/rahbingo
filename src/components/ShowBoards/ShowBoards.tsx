@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import BoardBingo from '../BoardBingo/BoardBingo';
 import { Link } from 'gatsby';
 import QRCode from 'qrcode'
@@ -38,6 +38,10 @@ const ShowBoards = ({ DatosPartida, style }) => {
 
   const handleClick = () => {
     window.open(LinkUrl, '_blank', 'width=800,height=600');
+  };
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(QRurl);
   };
 
   return (
@@ -81,7 +85,13 @@ const ShowBoards = ({ DatosPartida, style }) => {
         <div className='QR-container'>
           <h3 className='QR-h3'>Juega con tus cartones desde el móvil</h3>
           <p className='QR-p'>O haz click en el QR para verlos en otra pestaña</p>
-          {qr ? <button onClick={handleClick} className='QR-button' title='Click para abrir enlace' ><img src={qr} className='QR-img' /></button> : <span>Cargando QR</span>}
+          <div className='QR-block'>
+            {qr ? <button onClick={handleClick} className='QR-button' title='Click para abrir enlace' ><img src={qr} className='QR-img' /></button> : <span>Cargando QR</span>}
+            <div className='copy-block'>
+              <p className='copy-title'>Tambien puedes copiar el link aquí:</p>
+              <FontAwesomeIcon icon={faCopy} className='copy-button' onClick={handleCopyToClipboard} />
+            </div>
+          </div>
         </div>
         <Link to="/match" className='submit-button' >Jugar</Link>
       </div>
