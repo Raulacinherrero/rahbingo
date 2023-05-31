@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { obtenerDatosDocumento } from '../firebase';
 import Navbar from '../components/Navbar/Navbar';
 import ShowBoards from '../components/ShowBoards/ShowBoards';
+import { Link } from 'gatsby';
 
 const PreMatch = () => {
   const [idPartida, setIdPartida] = useState('');
@@ -53,6 +54,7 @@ const PreMatch = () => {
       {DatosPartida && DatosPartida.ListaJugadores && (
         <ShowBoards listaJugadores={DatosPartida.ListaJugadores} style={3} />
       )}
+      <Link to={`/match-players/${idPartida}`}>{`/match-players/${idPartida}`}</Link>
       <pre>{JSON.stringify(DatosPartida, null, 2)}</pre>
     </>
   );
