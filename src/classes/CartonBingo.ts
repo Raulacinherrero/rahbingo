@@ -103,74 +103,60 @@ class CartonBingo {
     }
 
     static idToCarton(idCarton: string): [number, boolean][][] {
-        const cartonJson: [number, boolean][][] = [];
-        
-        let subarray: [number, boolean][] = [];
-        for (let i = 0; i < idCarton.length; i += 3) {
-          const substring = idCarton.substr(i, 3);
-          const intValue = Number(substring.substr(0, 2));
-          const boolValue = substring[2] === "t" ? true : false;
-          
-          subarray.push([intValue, boolValue]);
-          
-          if (subarray.length === 9 || i === idCarton.length - 3) {
-            cartonJson.push(subarray);
-            subarray = [];
-          }
+      const cartonJson: [number, boolean][][] = [];
+    
+      let subarray: [number, boolean][] = [];
+      for (let i = 0; i < idCarton.length; i += 3) {
+        const substring = idCarton.substr(i, 3);
+        const intValue = Number(substring.substr(0, 2));
+        const boolValue = substring[2] === "t";
+    
+        subarray.push([intValue, boolValue]);
+    
+        if (subarray.length === 9) {
+          cartonJson.push(subarray);
+          subarray = [];
         }
-        
-        return cartonJson;
       }
+    
+      return cartonJson;
+    }
 
     static cartonToId(carton: [number, boolean][][]): string {
-        let idCarton = "";
-        for (const linea of carton) {
-          for (const number of linea) {
-            let num = number[0].toString();
-            if (num.length === 1) {
-              num = "0" + num;
-            }
-            idCarton += num;
-            if (number[1]) {
-              idCarton += "t";
-            } else {
-              idCarton += "f";
-            }
-          }
+      let idCarton = "";
+      for (const linea of carton) {
+        for (const number of linea) {
+          let num = number[0].toString().padStart(2, "0");
+          idCarton += num;
+          idCarton += number[1] ? "t" : "f";
         }
-        return idCarton;
       }
-      
+      return idCarton;
+    }
 
     static isLinea(nLinea: [number, boolean][]): boolean {
-        let linea = true;
-        for (const num of nLinea) {
-          if (!linea) {
-            return false;
-          }
-          linea = num[1];
+      for (const num of nLinea) {
+        if (!num[1]) {
+          return false;
         }
-        return linea;
       }
-      
+      return true;
+    }
 
     setLinea(linea: boolean): void {
         this.linea = linea;
     }
 
     static isBingo(carton: [number, boolean][][]): boolean {
-        let bingo = true;
-        for (const Linea of carton) {
-          for (const num of Linea) {
-            if (!bingo) {
-              return false;
-            }
-            bingo = num[1];
+      for (const linea of carton) {
+        for (const num of linea) {
+          if (!num[1]) {
+            return false;
           }
         }
-        return bingo;
       }
-      
+      return true;
+    }
 
     setBingo(bingo: boolean): void {
         this.bingo = bingo;
