@@ -91,10 +91,10 @@ const HowManyPlayers = () => {
             idPartida: idPartida,
             idNumerosBombo: idNumerosBombo,
             ListaJugadores: idJugadoresArray,
-            idDespistadosLinea: [],
-            idDespistadosBingo: [],
-            idGanadoresLinea: [],
-            idGanadoresBingo: []
+            DespistadosLinea: [],
+            DespistadosBingo: [],
+            GanadoresLinea: [],
+            GanadoresBingo: []
         };
 
         uploadCollection("DatosPartida",idPartida, DatosPartida);
