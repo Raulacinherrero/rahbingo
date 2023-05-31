@@ -27,6 +27,12 @@ const NextNumber = ({ DatosPartida }) => {
     setIsButtonClicked(false);
   }, [numerosBomboState]);
 
+  useEffect(() => {
+    if (numerosBomboState === 'f'.repeat(90)) {
+      generarNumeroAleatorio();
+    }
+  }, []);
+
   const generarNumeroAleatorio = async () => {
     const numeroIndex = Math.floor(Math.random() * numerosArray.length);
     const numeroSeleccionado = numerosArray[numeroIndex];
@@ -36,7 +42,7 @@ const NextNumber = ({ DatosPartida }) => {
     nuevosDatosPartida[numeroSeleccionado - 1] = 't';
     const nuevosDatosPartidaString = nuevosDatosPartida.join('');
 
-    setIsButtonClicked(true); // Button has been clicked
+    setIsButtonClicked(true);
 
     await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "idNumerosBombo", nuevosDatosPartidaString);
     const updatedNumerosBombo = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "idNumerosBombo");
@@ -59,13 +65,15 @@ const NextNumber = ({ DatosPartida }) => {
             </button>
           ) : (
             <button className='button' onClick={generarNumeroAleatorio}>
-              Siguiente número
+              {numeroAleatorio === null ? 'Continuar Partida' : 'Siguiente número'}
             </button>
           )}
-          {islinea ? (
-            <Link to='/validator' className='button'>Cantar Línea</Link>
-          ) : (
-            <Link to='/validator' className='button'>Cantar Bingo</Link>
+          {numeroAleatorio !== null && (
+            islinea ? (
+              <Link to='/validator' className='button'>Cantar Línea</Link>
+            ) : (
+              <Link to='/validator' className='button'>Cantar Bingo</Link>
+            )
           )}
         </div>
       </div>
