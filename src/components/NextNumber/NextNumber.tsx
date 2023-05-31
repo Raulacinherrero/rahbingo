@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { actualizarCampoDocumento, obtenerCampoDocumento } from "../../firebase";
 import { Link } from 'gatsby';
 import CartonBingo from '../../classes/CartonBingo';
@@ -103,9 +105,20 @@ const NextNumber = ({ DatosPartida }) => {
     setNumerosBombo(updatedNumerosBombo);
   };
 
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(DatosPartida.idPartida);
+  };
+
   return (
     <div className='next-number-container'>
       <div className='bombo-container'>
+        <div className='id-partida-container'>
+          <p className='id-partida-title'>
+            ID: {DatosPartida.idPartida}
+            <FontAwesomeIcon icon={faCopy} className='copy-button' onClick={handleCopyToClipboard} />
+          </p>
+          <p className='id-partida-p'>Guárdalo en caso de que quieras continuarla en otro momento</p>
+        </div>
         <Bombo idNumerosBombo={numerosBomboState} />
       </div>
       <div className='content-container'>
