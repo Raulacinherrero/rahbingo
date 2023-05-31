@@ -61,10 +61,10 @@ const HowManyPlayers = () => {
 
         var idJugador = "";
         var idCarton = "";
-        const idJugadoresArray = [];
+        const idJugadoresArray: string[] = [];
 
         listaJugadores.forEach((jugador) => {
-            const idCartonesArray = [];
+            const idCartonesArray: string[] = [];
             idJugador = idPartida+":J"+jugador.getIdJugador().toString();
             idJugadoresArray.push(idJugador);
             const CartonesJugador: CartonBingo[] = jugador.getCartonesJugador();
@@ -79,7 +79,6 @@ const HowManyPlayers = () => {
                 }
                 uploadCollection("CartonesJugador", idCarton, DatosCarton);
             });
-            const IdCartonesString = idCartonesArray.join("-");
             const DatosJugador = {
                 idJugador: idJugador,
                 nombreJugador: jugador.getNombreJugador(),
@@ -88,7 +87,6 @@ const HowManyPlayers = () => {
             uploadCollection("ListaJugadores", idJugador, DatosJugador);
         });
 
-        const idJugadoresString = idJugadoresArray.join("-");
         const DatosPartida = {
             idPartida: idPartida,
             idNumerosBombo: idNumerosBombo,
