@@ -117,7 +117,7 @@ const NextNumber = ({ DatosPartida }) => {
             ID: {DatosPartida.idPartida}
             <FontAwesomeIcon icon={faCopy} className='copy-button' onClick={handleCopyToClipboard} />
           </p>
-          <p className='id-partida-p'>Guárdalo en caso de que quieras continuarla en otro momento</p>
+          <p className='id-partida-p'>Guárdalo en caso de que quieras continuar la partida en otro momento</p>
         </div>
         <Bombo idNumerosBombo={numerosBomboState} />
       </div>
