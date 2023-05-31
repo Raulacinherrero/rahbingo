@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../images/logo.png';
+import logo from '../../images/icono-negro.svg';
 import './bombo.scss';
 
 const Bombo = ({ idNumerosBombo }) => {
