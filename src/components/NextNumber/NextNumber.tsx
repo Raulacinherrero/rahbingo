@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { actualizarCampoDocumento, obtenerCampoDocumento, obtenerDatosDocumento } from "../../firebase";
+import { actualizarCampoDocumento, obtenerCampoDocumento } from "../../firebase";
 import { Link } from 'gatsby';
 import CartonBingo from '../../classes/CartonBingo';
 import Bombo from '../Bombo/Bombo';
@@ -16,7 +16,7 @@ const NextNumber = ({ DatosPartida }) => {
   }
 
   const [numeroAleatorio, setNumeroAleatorio] = useState<number | null>(null);
-  const islinea = DatosPartida?.GanadoresLinea?.length === 0;
+  const Caselinea = DatosPartida?.GanadoresLinea?.length === 0;
   const [isButtonClicked, setIsButtonClicked] = useState<boolean>(false);
 
   useEffect(() => {
@@ -40,33 +40,48 @@ const NextNumber = ({ DatosPartida }) => {
           var Carton = await obtenerCampoDocumento("CartonesJugador", carton.idCarton, "carton");
           const cartonJson = CartonBingo.idToCarton(Carton);
 
+          const DespistadosBingo = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo");
+
           cartonJson?.forEach(async (linea) => {
+            const DespistadosLinea = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea");
             linea?.forEach((numero) => {
               if (numero[0] === numeroAleatorio) {
                 numero[1] = true;
-                console.log(jugador.nombreJugador + " tiene el numero " + numeroAleatorio);
-                console.log(numero[1]);
-                console.log(cartonJson);
+                console.error(jugador.nombreJugador + " tiene el numero " + numeroAleatorio);
               }
-            });
+            })
+
+            if (CartonBingo.isLinea(linea)) {
+              console.error(jugador.nombreJugador + " tiene linea");
+            }
 
             if (
               CartonBingo.isLinea(linea) &&
-              !DatosPartida.DespistadosLinea.includes(jugador.idJugador) &&
-              !islinea
+              !DespistadosLinea.includes(jugador.idJugador) &&
+              Caselinea
             ) {
-              DatosPartida.DespistadosLinea.push(jugador.idJugador);
-              await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", DatosPartida.DespistadosLinea);
+              DespistadosLinea.push(jugador.idJugador);
+              await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", DespistadosLinea);
             }
+
           });
 
-          if (CartonBingo.isBingo(Carton) && !DatosPartida.DespistadosBingo.includes(jugador.idJugador)) {
-            DatosPartida.DespistadosBingo.push(jugador.idJugador);
+          if (CartonBingo.isBingo(Carton) && !DespistadosBingo.includes(jugador.idJugador)) {
+            console.error(jugador.nombreJugador + "tiene bingo")
+            DespistadosBingo.push(jugador.idJugador);
             await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", DatosPartida.DespistadosBingo);
           }
 
-          Carton = CartonBingo.cartonToId(cartonJson);
-          console.log(Carton);
+          const updatedCartonJson: [number, boolean][][] = cartonJson.map((linea) =>
+            linea.map((numero) => {
+              if (numero[0] === numeroAleatorio) {
+                return [numero[0], true];
+              }
+              return [numero[0], numero[1]];
+            })
+          );
+          
+          Carton = CartonBingo.cartonToId(updatedCartonJson);
           await actualizarCampoDocumento("CartonesJugador", carton.idCarton, "carton", Carton);
         });
       });
@@ -108,7 +123,7 @@ const NextNumber = ({ DatosPartida }) => {
             </button>
           )}
           {numeroAleatorio !== null && (
-            islinea ? (
+            Caselinea ? (
               <Link to='/validator' className='button'>Cantar Línea</Link>
             ) : (
               <Link to='/validator' className='button'>Cantar Bingo</Link>
