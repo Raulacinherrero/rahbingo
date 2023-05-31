@@ -73,3 +73,23 @@ export async function obtenerDatosDocumento(coleccion, id) {
     return null;
   }
 }
+
+export async function obtenerCampoDocumento(coleccion, id, campo) {
+  try {
+    const documentoRef = doc(db, coleccion, id);
+    const documentoSnapshot = await getDoc(documentoRef);
+
+    if (documentoSnapshot.exists()) {
+      const datosDocumento = documentoSnapshot.data();
+      const dato = datosDocumento[campo];
+      console.log(`Dato "${campo}" del documento:`, dato);
+      return dato;
+    } else {
+      console.log("El documento no existe");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error al obtener dato del documento:", error);
+    return null;
+  }
+}
