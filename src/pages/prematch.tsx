@@ -3,13 +3,23 @@ import { obtenerDatosDocumento } from '../firebase';
 import Navbar from '../components/Navbar/Navbar';
 import ShowBoards from '../components/ShowBoards/ShowBoards';
 import { Link } from 'gatsby';
+import QRCode from 'qrcode'
 
 const PreMatch = () => {
   const [idPartida, setIdPartida] = useState('');
   const [DatosPartida, setDatosPartida] = useState(null);
   const [ListaJugadores, setListaJugadores] = useState([]);
 
+  const [qr, setQr] = useState<string|null>(null);
+
   useEffect(() => {
+    QRCode.toDataURL(`${process.env.GATSBY_ROOT_URL}match-players/${idPartida}`)
+      .then(url => {
+        setQr(url)
+      })
+      .catch(err => {
+        console.error(err)
+      })
     const fetchData = async () => {
       try {
         const idPartida = localStorage.getItem('idPartida') || '';
@@ -54,7 +64,8 @@ const PreMatch = () => {
       {DatosPartida && DatosPartida.ListaJugadores && (
         <ShowBoards listaJugadores={DatosPartida.ListaJugadores} style={3} />
       )}
-      <Link to={`/match-players/${idPartida}`}>{`/match-players/${idPartida}`}</Link>
+      {qr ? <img src={qr} /> : <span>Cargando QR</span>}
+      {/* <Link to={`/match-players/${idPartida}`}>{`/match-players/${idPartida}`}</Link> */}
       <pre>{JSON.stringify(DatosPartida, null, 2)}</pre>
     </>
   );
