@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import BoardBingo from '../BoardBingo/BoardBingo';
+import { actualizarCampoDocumento, obtenerCampoDocumento } from '../../firebase';
 import { Link } from 'gatsby';
+import BoardBingo from '../BoardBingo/BoardBingo';
 import './validator-form.scss';
+import CartonBingo from '../../classes/CartonBingo';
 
 const ValidatorForm = ({ DatosPartida }) => {
   const [selectedJugador, setSelectedJugador] = useState('');
@@ -9,6 +11,10 @@ const ValidatorForm = ({ DatosPartida }) => {
   const [selectedLinea, setSelectedLinea] = useState('');
   const [updateBoard, setUpdateBoard] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [despistadosLinea, setDespistadosLinea] = useState([]);
+  const [despistadosBingo, setDespistadosBingo] = useState([]);
+  const [ganadoresLinea, setGanadoresLinea] = useState([]);
+  const [ganadoresBingo, setGanadoresBingo] = useState([]);
 
   const handleJugadorChange = (event) => {
     const jugadorId = event.target.value;
@@ -31,11 +37,6 @@ const ValidatorForm = ({ DatosPartida }) => {
     setUpdateBoard(false);
   };
 
-  const handleButtonClick = () => {
-    setUpdateBoard(true);
-    setHidden(true);
-  };
-
   const restart = () => {
     setUpdateBoard(true);
     setHidden(false);
@@ -44,9 +45,93 @@ const ValidatorForm = ({ DatosPartida }) => {
     setSelectedLinea('');
   };
 
-
   const CaseLinea = DatosPartida?.GanadoresLinea?.length === 0;
-  const CaseBingo = DatosPartida?.GanadoresBingo?.length === 0;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const despistadosLinea = await obtenerCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "DespistadosLinea"
+        );
+        const despistadosBingo = await obtenerCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "DespistadosBingo"
+        );
+        const ganadoresLinea = await obtenerCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "GanadoresLinea"
+        );
+        const ganadoresBingo = await obtenerCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "GanadoresBingo"
+        );
+
+        setDespistadosLinea(despistadosLinea);
+        setDespistadosBingo(despistadosBingo);
+        setGanadoresLinea(ganadoresLinea);
+        setGanadoresBingo(ganadoresBingo);
+      } catch (error) {
+        // Handle the error
+      }
+    };
+
+    fetchData();
+  }, [DatosPartida.idPartida]);
+
+  const Validar = async () => {
+    if (CaseLinea) {
+      if (DatosPartida.DespistadosLinea.includes(selectedJugador) && CartonBingo.isLinea(CartonBingo.idToCarton(selectedCarton)[selectedLinea])) {
+        const updatedDespistadosLinea = DatosPartida.DespistadosLinea.filter(
+          (jugador) => jugador !== selectedJugador
+        );
+        const updatedGanadoresLinea = [...ganadoresLinea, selectedJugador];
+
+        await actualizarCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "DespistadosLinea",
+          updatedDespistadosLinea
+        );
+        await actualizarCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "GanadoresLinea",
+          updatedGanadoresLinea
+        );
+
+        setGanadoresLinea(updatedGanadoresLinea);
+      }
+    } else {
+      if (DatosPartida.DespistadosBingo.includes(selectedJugador) && CartonBingo.isBingo(CartonBingo.idToCarton(selectedCarton))) {
+        const updatedDespistadosBingo = DatosPartida.DespistadosBingo.filter(
+          (jugador) => jugador !== selectedJugador
+        );
+        const updatedGanadoresBingo = [...ganadoresBingo, selectedJugador];
+
+        await actualizarCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "DespistadosBingo",
+          updatedDespistadosBingo
+        );
+        await actualizarCampoDocumento(
+          "DatosPartida",
+          DatosPartida.idPartida,
+          "GanadoresBingo",
+          updatedGanadoresBingo
+        );
+
+        setGanadoresBingo(updatedGanadoresBingo);
+      }
+    }
+    setUpdateBoard(true);
+    setHidden(true);
+  };
 
   return (
     <div className='validator-container'>
@@ -115,27 +200,30 @@ const ValidatorForm = ({ DatosPartida }) => {
                 key={selectedCarton}
                 Carton={selectedCarton}
                 estado={updateBoard ? 2 : 0}
-                linea={selectedLinea !== 'null' ? Number(selectedLinea) : null}
+                linea={selectedLinea !== '' ? Number(selectedLinea) : null}
               />
             </div>
           )}
           {CaseLinea && selectedLinea !== '' && !hidden && (
-            CaseLinea ? (
-              <button className='validator-button' onClick={handleButtonClick}>Validar Línea</button>
-            ) : (
-              <button className='validator-button' onClick={handleButtonClick}>Validar Carton</button>
-            )
+            <button className='validator-button' onClick={Validar}>Validar Línea</button>
+          )}
+          {!CaseLinea && selectedCarton !== '' && !hidden && (
+            <button className='validator-button' onClick={Validar}>Validar Carton</button>
           )}
         </div>
       </div>
       <div>
-        {CaseBingo ? (
+        {CaseLinea ? (
           <Link to='/match' className='validator-volver-button'>Volver</Link>
         ) : (
-          <Link to='/winners' className='validator-volver-button'>Terminar</Link>
+          <Link to='/winners' className='validator-terminar-button'>Terminar</Link>
         )}
         {hidden && (
-          <button className='validator-again-button' onClick={restart}>Validar de nuevo</button>
+          CaseLinea ? (
+            <button className='validator-again-button' onClick={restart}>Validar otra Línea</button>
+          ) : (
+            <button className='validator-again-button' onClick={restart}>Validar otro Bingo</button>
+          )
         )}
       </div>
     </div>

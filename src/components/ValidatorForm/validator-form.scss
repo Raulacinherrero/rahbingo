@@ -96,6 +96,25 @@
         }
     }
 
+    .validator-terminar-button {
+        margin-left: 54rem;
+        position: fixed;
+        bottom: 5rem;
+        background-color: $corpColor;
+        color: $blanco;
+        font-size: 2rem;
+        font-family: sans-serif;
+        border: none;
+        border-radius: 2rem;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        height: 5rem;
+
+        &:active {
+            background-color: $corpColor2;
+        }
+    }
+
     .validator-volver-button {
         margin-left: 55rem;
         position: fixed;
