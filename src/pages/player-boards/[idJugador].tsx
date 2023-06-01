@@ -32,7 +32,7 @@ const PlayerBoards = ({ params }) => {
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <div style={{ width: '100%' }}>
         {cartonesJugador.map((Carton) => (
-          <BoardBingo key={Carton.idCarton} Carton={Carton} mobile={true}/>
+          <BoardBingo key={Carton.idCarton} Carton={Carton.carton} estado={1} linea={null}/>
         ))}
       </div>
     </>
