@@ -33,7 +33,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
       setTdClassNames(updatedTdClassNames);
     }
   };
-  
+
   useEffect(() => {
     if (estado === 0) {
       const updatedTdClassNames = tdClassNames.map((row, i) =>
@@ -45,7 +45,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
     } else if (estado === 2) {
       const animateStyles = () => {
         const tdIndicesToAnimate: [number, number][] = [];
-  
+
         if (linea !== null) {
           // Calcular los TD relevantes para animar y excluir los TD con número 0
           let foundFalse = false;
@@ -81,25 +81,25 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
             }
           }
         }
-  
+
         const animationInterval = setInterval(() => {
           if (tdIndicesToAnimate.length === 0) {
             clearInterval(animationInterval);
             return;
           }
-  
+
           const [rowIndex, columnIndex] = tdIndicesToAnimate.shift()!;
           setTdClassNames(prevClassNames => {
             const updatedClassNames = [...prevClassNames];
             updatedClassNames[rowIndex][columnIndex] = 'board-number ' + cartonJson[rowIndex][columnIndex][1].toString();
             return updatedClassNames;
           });
-        }, 500); // Medio segundo de intervalo entre cambios de estilo
-  
+        }, 1000); // Medio segundo de intervalo entre cambios de estilo
+
         // Limpiar el intervalo al desmontar el componente
         return () => clearInterval(animationInterval);
       };
-  
+
       animateStyles();
     }
   }, [estado, linea, tdClassNames, cartonJson]);  

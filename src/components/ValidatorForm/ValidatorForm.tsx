@@ -8,7 +8,6 @@ const ValidatorForm = ({ DatosPartida }) => {
   const [selectedCarton, setSelectedCarton] = useState('');
   const [selectedLinea, setSelectedLinea] = useState('');
   const [updateBoard, setUpdateBoard] = useState(false);
-  const [timeWaiting, setTimeWaiting] = useState(0);
 
   const handleJugadorChange = (event) => {
     const jugadorId = event.target.value;
@@ -33,11 +32,6 @@ const ValidatorForm = ({ DatosPartida }) => {
 
   const handleButtonClick = () => {
     setUpdateBoard(true);
-  };
-
-  const handleBoardUpdate = () => {
-    setUpdateBoard(false);
-    setSelectedLinea('');
   };
 
   const Caselinea = DatosPartida?.GanadoresLinea?.length === 0;
@@ -109,7 +103,6 @@ const ValidatorForm = ({ DatosPartida }) => {
                 Carton={selectedCarton}
                 estado={updateBoard ? 2 : 0}
                 linea={selectedLinea !== 'null' ? Number(selectedLinea) : null}
-                onBoardUpdate={handleBoardUpdate}
               />
             </div>
           )}
