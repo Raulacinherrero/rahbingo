@@ -8,18 +8,7 @@ const ValidatorForm = ({ DatosPartida }) => {
   const [selectedCarton, setSelectedCarton] = useState('');
   const [selectedLinea, setSelectedLinea] = useState('');
   const [updateBoard, setUpdateBoard] = useState(false);
-  const [selectsContainerClass, setSelectsContainerClass] = useState('selects-container');
-  const [buttonBoardContainerClass, setButtonBoardContainerClass] = useState('button-board-container');
-
-  useEffect(() => {
-    if (selectedCarton) {
-      setSelectsContainerClass('selects-container-half');
-      setButtonBoardContainerClass('button-board-container-half');
-    } else {
-      setSelectsContainerClass('selects-container');
-      setButtonBoardContainerClass('button-board-container');
-    }
-  }, [selectedCarton]);
+  const [timeWaiting, setTimeWaiting] = useState(0);
 
   const handleJugadorChange = (event) => {
     const jugadorId = event.target.value;
@@ -111,10 +100,10 @@ const ValidatorForm = ({ DatosPartida }) => {
             </div>
           )}
         </div>
-
-        {selectedCarton && (
-          <div className='button-board-container'>
-            <div>
+        <div className='button-board-container'>
+          <Link to='/match' className='validator-volver-button'>Volver</Link>
+          {selectedCarton && (
+            <div className='validator-boardbingo'>
               <BoardBingo
                 key={selectedCarton}
                 Carton={selectedCarton}
@@ -123,15 +112,15 @@ const ValidatorForm = ({ DatosPartida }) => {
                 onBoardUpdate={handleBoardUpdate}
               />
             </div>
-            {Caselinea && selectedLinea !== '' && (
-              Caselinea ? (
-                <button className='validator-button' onClick={handleButtonClick}>Validar Línea</button>
-              ) : (
-                <button className='validator-button' onClick={handleButtonClick}>Validar Carton</button>
-              )
-            )}
-          </div>
-        )}
+          )}
+          {Caselinea && selectedLinea !== '' && (
+            Caselinea ? (
+              <button className='validator-button' onClick={handleButtonClick}>Validar Línea</button>
+            ) : (
+              <button className='validator-button' onClick={handleButtonClick}>Validar Carton</button>
+            )
+          )}
+        </div>
       </div>
     </div>
   );
