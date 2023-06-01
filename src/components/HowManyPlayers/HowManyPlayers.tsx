@@ -73,9 +73,7 @@ const HowManyPlayers = () => {
                 idCartonesArray.push(idCarton);
                 const DatosCarton = {
                     carton: carton.getCarton(),
-                    idCarton: idCarton,
-                    isLinea: false,
-                    isBingo: false
+                    idCarton: idCarton
                 }
                 uploadCollection("CartonesJugador", idCarton, DatosCarton);
             });
