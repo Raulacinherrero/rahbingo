@@ -21,7 +21,6 @@
         gap: 1rem;
 
         .selects-container {
-            margin-top: 4rem;
             margin-left: 2rem;
             display: flex;
             flex-direction: column;
@@ -61,6 +60,7 @@
             align-items: center;
 
             .validator-button {
+                margin-top: 27rem;
                 position: fixed;
                 background-color: $corpColor;
                 color: $blanco;
@@ -77,25 +77,12 @@
                 }
             }
 
-            .validator-boardbingo{
+            .validator-boardbingo {
                 margin-top: 7rem;
-            }
 
-            .validator-volver-button {
-                margin-top: 35rem;
-                position: fixed;
-                background-color: $corpColor;
-                color: $blanco;
-                font-size: 2rem;
-                font-family: sans-serif;
-                border: none;
-                border-radius: 2rem;
-                padding: 1rem 2rem;
-                cursor: pointer;
-                height: 5rem;
-
-                &:active {
-                    background-color: $corpColor2;
+                &.hidden {
+                    margin-top: 0rem;
+                    margin-left: 40rem;
                 }
             }
         }
@@ -106,6 +93,44 @@
 
         .button-board-container-half {
             grid-column: span 1;
+        }
+    }
+
+    .validator-volver-button {
+        margin-left: 55rem;
+        position: fixed;
+        bottom: 5rem;
+        background-color: $corpColor;
+        color: $blanco;
+        font-size: 2rem;
+        font-family: sans-serif;
+        border: none;
+        border-radius: 2rem;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        height: 5rem;
+
+        &:active {
+            background-color: $corpColor2;
+        }
+    }
+
+    .validator-again-button {
+        margin-left: 50rem;
+        position: fixed;
+        bottom: 13.5rem;
+        background-color: $corpColor;
+        color: $blanco;
+        font-size: 2rem;
+        font-family: sans-serif;
+        border: none;
+        border-radius: 2rem;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        height: 5rem;
+
+        &:active {
+            background-color: $corpColor2;
         }
     }
 }

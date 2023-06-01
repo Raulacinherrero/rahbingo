@@ -8,6 +8,7 @@ const ValidatorForm = ({ DatosPartida }) => {
   const [selectedCarton, setSelectedCarton] = useState('');
   const [selectedLinea, setSelectedLinea] = useState('');
   const [updateBoard, setUpdateBoard] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   const handleJugadorChange = (event) => {
     const jugadorId = event.target.value;
@@ -32,72 +33,84 @@ const ValidatorForm = ({ DatosPartida }) => {
 
   const handleButtonClick = () => {
     setUpdateBoard(true);
+    setHidden(true);
   };
 
-  const Caselinea = DatosPartida?.GanadoresLinea?.length === 0;
+  const restart = () => {
+    setUpdateBoard(true);
+    setHidden(false);
+    setSelectedJugador('');
+    setSelectedCarton('');
+    setSelectedLinea('');
+  };
+
+
+  const CaseLinea = DatosPartida?.GanadoresLinea?.length === 0;
+  const CaseBingo = DatosPartida?.GanadoresBingo?.length === 0;
 
   return (
     <div className='validator-container'>
-      {Caselinea ? (
+      {CaseLinea ? (
         <h1 className='validator-title'>¿La línea es correcta?</h1>
       ) : (
         <h1 className='validator-title'>¿El bingo es correcto?</h1>
       )}
       <div className='validator-form'>
-        <div className='selects-container'>
-          <div>
-            <label className='validator-label'>
-              Jugador:
-              <select className='validator-select' value={selectedJugador} onChange={handleJugadorChange}>
-                <option value="null">Selecciona un jugador</option>
-                {DatosPartida.ListaJugadores.map((jugador) => (
-                  <option key={jugador.idJugador} value={jugador.idJugador}>
-                    {jugador.nombreJugador}
-                  </option>
-                ))}
-              </select>
-            </label>
+        {!hidden && (
+          <div className='selects-container'>
+            <div>
+              <label className='validator-label'>
+                Jugador:
+                <select className='validator-select' value={selectedJugador} onChange={handleJugadorChange}>
+                  <option value="null">Selecciona un jugador</option>
+                  {DatosPartida.ListaJugadores.map((jugador) => (
+                    <option key={jugador.idJugador} value={jugador.idJugador}>
+                      {jugador.nombreJugador}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            {selectedJugador && (
+              <div>
+                <label className='validator-label'>
+                  Cartón:
+                  <select className='validator-select' value={selectedCarton} onChange={handleCartonChange}>
+                    <option value="null">Selecciona un cartón</option>
+                    {DatosPartida.ListaJugadores.map((jugador) => {
+                      if (jugador.idJugador === selectedJugador) {
+                        return jugador.CartonesJugador.map((carton, index) => (
+                          <option key={carton.idCarton} value={carton.carton}>
+                            {index + 1}º Cartón
+                          </option>
+                        ));
+                      }
+                      return null;
+                    })}
+                  </select>
+                </label>
+              </div>
+            )}
+
+            {selectedCarton && CaseLinea && (
+              <div>
+                <label className='validator-label'>
+                  Línea:
+                  <select className='validator-select' value={selectedLinea} onChange={handleLineaChange}>
+                    <option value="null">Selecciona una línea</option>
+                    <option value="0">1ª Línea</option>
+                    <option value="1">2ª Línea</option>
+                    <option value="2">3ª línea</option>
+                  </select>
+                </label>
+              </div>
+            )}
           </div>
-
-          {selectedJugador && (
-            <div>
-              <label className='validator-label'>
-                Cartón:
-                <select className='validator-select' value={selectedCarton} onChange={handleCartonChange}>
-                  <option value="null">Selecciona un cartón</option>
-                  {DatosPartida.ListaJugadores.map((jugador) => {
-                    if (jugador.idJugador === selectedJugador) {
-                      return jugador.CartonesJugador.map((carton, index) => (
-                        <option key={carton.idCarton} value={carton.carton}>
-                          {index + 1}º Cartón
-                        </option>
-                      ));
-                    }
-                    return null;
-                  })}
-                </select>
-              </label>
-            </div>
-          )}
-
-          {selectedCarton && Caselinea && (
-            <div>
-              <label className='validator-label'>
-                Línea:
-                <select className='validator-select' value={selectedLinea} onChange={handleLineaChange}>
-                  <option value="null">Selecciona una línea</option>
-                  <option value="0">1ª Línea</option>
-                  <option value="1">2ª Línea</option>
-                  <option value="2">3ª línea</option>
-                </select>
-              </label>
-            </div>
-          )}
-        </div>
+        )}
         <div className='button-board-container'>
-          <Link to='/match' className='validator-volver-button'>Volver</Link>
           {selectedCarton && (
-            <div className='validator-boardbingo'>
+            <div className={`validator-boardbingo${hidden ? ' hidden' : ''}`}>
               <BoardBingo
                 key={selectedCarton}
                 Carton={selectedCarton}
@@ -106,14 +119,24 @@ const ValidatorForm = ({ DatosPartida }) => {
               />
             </div>
           )}
-          {Caselinea && selectedLinea !== '' && (
-            Caselinea ? (
+          {CaseLinea && selectedLinea !== '' && !hidden && (
+            CaseLinea ? (
               <button className='validator-button' onClick={handleButtonClick}>Validar Línea</button>
             ) : (
               <button className='validator-button' onClick={handleButtonClick}>Validar Carton</button>
             )
           )}
         </div>
+      </div>
+      <div>
+        {CaseBingo ? (
+          <Link to='/match' className='validator-volver-button'>Volver</Link>
+        ) : (
+          <Link to='/winners' className='validator-volver-button'>Terminar</Link>
+        )}
+        {hidden && (
+          <button className='validator-again-button' onClick={restart}>Validar de nuevo</button>
+        )}
       </div>
     </div>
   );

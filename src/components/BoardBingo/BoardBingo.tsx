@@ -16,7 +16,8 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
       .fill(null)
       .map(() => Array(cartonJson[0].length).fill('board-number'))
   );
-  const [animationFinished, setAnimationFinished] = useState(false); // Nuevo estado para controlar la animación
+  const [animationFinished, setAnimationFinished] = useState(false);
+  const [premio, setPremio] = useState(true);
 
   const getBoardNumberContent = (num: number) => {
     return num !== 0 ? num : <img src={logo} className='logo' alt='Logo' />;
@@ -59,6 +60,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
                 tdIndicesToAnimate.push([linea, columnIndex]);
                 if (cartonJson[linea][columnIndex][1] === false) {
                   foundFalse = true;
+                  setPremio(false);
                 }
               }
             }
@@ -76,6 +78,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
                   tdIndicesToAnimate.push([rowIndex, columnIndex]);
                   if (cartonJson[rowIndex][columnIndex][1] === false) {
                     foundFalse = true;
+                    setPremio(false);
                   }
                 }
               }
@@ -106,34 +109,35 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
     }
   }, [estado, linea, tdClassNames, cartonJson]);
 
-  const lineaValida = false;
-  const BingoValido = true;
-  const CaseLinea = false
+  const CaseLinea = linea !== null;
 
   return (
     <>
-      {animationFinished ? (
-        <>
-          {CaseLinea ? (
-            <>
-              {lineaValida ? (
-                <p className='resultado-title'>La línea es correcta</p>
-              ) : (
-                <p className='resultado-title'>La línea NO es correcta</p>
-              )}
-            </>
-          ) : (
-            <>
-              {BingoValido ? (
-                <p className='resultado-title'>El Bingo es correcto</p>
-              ) : (
-                <p className='resultado-title'>El Bingo NO es correcto</p>
-              )}
-            </>
-          )}
-        </>
-      ) : (
-        <p className='resultado-title'>¿Es este tu cartón?</p>
+      {estado === 2 && (<>
+        {animationFinished ? (
+          <>
+            {CaseLinea ? (
+              <>
+                {premio ? (
+                  <p className='resultado-title'>La línea es correcta</p>
+                ) : (
+                  <p className='resultado-title'>La línea NO es correcta</p>
+                )}
+              </>
+            ) : (
+              <>
+                {premio ? (
+                  <p className='resultado-title'>El Bingo es correcto</p>
+                ) : (
+                  <p className='resultado-title'>El Bingo NO es correcto</p>
+                )}
+              </>
+            )}
+          </>
+        ) : (
+          <p className='resultado-title'>Validando...</p>
+        )}
+      </>
       )}
       <table className='table-board'>
         <tbody>
@@ -156,14 +160,14 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
         <>
           {CaseLinea && (
             <>
-              {lineaValida ? (
+              {premio ? (
                 <p className='resultado-subtitle'>Continuamos para Bingo</p>
               ) : null}
             </>
           )}
           {!CaseLinea && (
             <>
-              {BingoValido ? (
+              {premio ? (
                 <p className='resultado-subtitle'>La Partida ha terminado</p>
               ) : null}
             </>
@@ -172,7 +176,6 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
       )}
     </>
   );
-
 };
 
 export default BoardBingo;
