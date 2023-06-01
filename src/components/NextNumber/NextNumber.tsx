@@ -37,7 +37,7 @@ const NextNumber = ({ DatosPartida }) => {
 
   useEffect(() => {
     if (numeroAleatorio !== null) {
-      DatosPartida.ListaJugadores?.forEach((jugador) => {
+      DatosPartida.ListaJugadores?.forEach(async (jugador) => {
         jugador.CartonesJugador.forEach(async (carton) => {
           var Carton = await obtenerCampoDocumento("CartonesJugador", carton.idCarton, "carton");
           const cartonJson = CartonBingo.idToCarton(Carton);
@@ -49,29 +49,30 @@ const NextNumber = ({ DatosPartida }) => {
             linea?.forEach((numero) => {
               if (numero[0] === numeroAleatorio) {
                 numero[1] = true;
-                console.error(jugador.nombreJugador + " tiene el numero " + numeroAleatorio);
+                console.error(jugador.nombreJugador + " tiene el número " + numeroAleatorio);
               }
-            })
+            });
 
             if (CartonBingo.isLinea(linea)) {
-              console.error(jugador.nombreJugador + " tiene linea");
+              console.error(jugador.nombreJugador + " tiene línea");
             }
 
             if (
               CartonBingo.isLinea(linea) &&
+              DespistadosLinea &&
+              Array.isArray(DespistadosLinea) &&
               !DespistadosLinea.includes(jugador.idJugador) &&
               Caselinea
             ) {
-              DespistadosLinea.push(jugador.idJugador);
-              await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", DespistadosLinea);
+              const updatedDespistadosLinea = [...DespistadosLinea, jugador.idJugador];
+              await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", updatedDespistadosLinea);
             }
-
           });
 
           if (CartonBingo.isBingo(cartonJson) && !DespistadosBingo.includes(jugador.idJugador)) {
-            console.error(jugador.nombreJugador + "tiene bingo")
+            console.error(jugador.nombreJugador + " tiene bingo");
             DespistadosBingo.push(jugador.idJugador);
-            await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", DatosPartida.DespistadosBingo);
+            await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", DespistadosBingo);
           }
 
           const updatedCartonJson: [number, boolean][][] = cartonJson.map((linea) =>
