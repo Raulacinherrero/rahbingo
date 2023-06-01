@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { obtenerDatosDocumento } from '../firebase';
 import Navbar from '../components/Navbar/Navbar';
 import ShowBoards from '../components/ShowBoards/ShowBoards';
+import Loading from '../components/Loading/Loading';
 
 const PreMatch = () => {
   const [idPartida, setIdPartida] = useState('');
@@ -50,8 +51,10 @@ const PreMatch = () => {
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar initialVisible={false} />
-      {DatosPartida && DatosPartida.ListaJugadores && (
+      {DatosPartida && DatosPartida.ListaJugadores ? (
         <ShowBoards DatosPartida={DatosPartida} style={3} />
+      ) : (
+        <Loading />
       )}
       {/* <pre>{JSON.stringify(DatosPartida, null, 2)}</pre> */}
     </>

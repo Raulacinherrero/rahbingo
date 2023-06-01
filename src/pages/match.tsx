@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { obtenerDatosDocumento } from "../firebase";
 import Navbar from '../components/Navbar/Navbar';
 import NextNumber from '../components/NextNumber/NextNumber';
+import Loading from '../components/Loading/Loading';
 
 const Match = () => {
   const [idPartida, setIdPartida] = useState('');
@@ -50,8 +51,10 @@ const Match = () => {
     <>
       <title>Bingo Offline | RAH Final 2ºDAW</title>
       <Navbar initialVisible={false} />
-      {DatosPartida && DatosPartida.ListaJugadores && (
+      {DatosPartida && DatosPartida.ListaJugadores ? (
         <NextNumber DatosPartida={DatosPartida} />
+      ) : (
+        <Loading />
       )}
     </>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { obtenerDatosDocumento } from '../firebase';
 import Navbar from '../components/Navbar/Navbar';
 import ValidatorForm from '../components/ValidatorForm/ValidatorForm';
-import { Link } from 'gatsby';
+import Loading from '../components/Loading/Loading';
 
 const PreMatch = () => {
     const [idPartida, setIdPartida] = useState('');
@@ -51,8 +51,10 @@ const PreMatch = () => {
         <>
             <title>Bingo Offline | RAH Final 2ºDAW</title>
             <Navbar initialVisible={false} />
-            {DatosPartida && DatosPartida.ListaJugadores && (
+            {DatosPartida && DatosPartida.ListaJugadores ? (
                 <ValidatorForm DatosPartida={DatosPartida} />
+            ) : (
+                <Loading />
             )}
         </>
     );
