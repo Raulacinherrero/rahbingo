@@ -16,6 +16,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
       .fill(null)
       .map(() => Array(cartonJson[0].length).fill('board-number'))
   );
+  const [animationFinished, setAnimationFinished] = useState(false); // Nuevo estado para controlar la animación
 
   const getBoardNumberContent = (num: number) => {
     return num !== 0 ? num : <img src={logo} className='logo' alt='Logo' />;
@@ -85,6 +86,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
         const animationInterval = setInterval(() => {
           if (tdIndicesToAnimate.length === 0) {
             clearInterval(animationInterval);
+            setAnimationFinished(true); // Actualizar el estado cuando la animación termine
             return;
           }
 
@@ -102,27 +104,74 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
 
       animateStyles();
     }
-  }, [estado, linea, tdClassNames, cartonJson]);  
+  }, [estado, linea, tdClassNames, cartonJson]);
+
+  const lineaValida = false;
+  const BingoValido = true;
+  const CaseLinea = false
 
   return (
-    <table className='table-board'>
-      <tbody>
-        {cartonJson.map((Linea: [number, boolean][], rowIndex: number) => (
-          <tr key={rowIndex}>
-            {Linea.map((Numero: [number, boolean], columnIndex: number) => (
-              <td
-                key={columnIndex}
-                className={cartonJson[rowIndex][columnIndex][0] === 0 ? 'board-number zero' : tdClassNames[rowIndex][columnIndex]}
-                onClick={() => handleNumberClick(rowIndex, columnIndex)}
-              >
-                {getBoardNumberContent(Numero[0])}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <>
+      {animationFinished && (
+        <>
+          {CaseLinea && (
+            <>
+              {lineaValida ? (
+                <p className='resultado-title'>La línea es correcta</p>
+              ) : (
+                <p className='resultado-title'>La línea NO es correcta</p>
+              )}
+            </>
+          )}
+          {!CaseLinea && (
+            <>
+              {BingoValido ? (
+                <p className='resultado-title'>El Bingo es correcto</p>
+              ) : (
+                <p className='resultado-title'>El Bingo NO es correcto</p>
+              )}
+            </>
+          )}
+        </>
+      )}
+      <table className='table-board'>
+        <tbody>
+          {cartonJson.map((Linea: [number, boolean][], rowIndex: number) => (
+            <tr key={rowIndex}>
+              {Linea.map((Numero: [number, boolean], columnIndex: number) => (
+                <td
+                  key={columnIndex}
+                  className={cartonJson[rowIndex][columnIndex][0] === 0 ? 'board-number zero' : tdClassNames[rowIndex][columnIndex]}
+                  onClick={() => handleNumberClick(rowIndex, columnIndex)}
+                >
+                  {getBoardNumberContent(Numero[0])}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {animationFinished && (
+        <>
+          {CaseLinea && (
+            <>
+              {lineaValida ? (
+                <p className='resultado-subtitle'>Continuamos para Bingo</p>
+              ) : null}
+            </>
+          )}
+          {!CaseLinea && (
+            <>
+              {BingoValido ? (
+                <p className='resultado-subtitle'>La Partida ha terminado</p>
+              ) : null}
+            </>
+          )}
+        </>
+      )}
+    </>
   );
+  
 };
 
 export default BoardBingo;

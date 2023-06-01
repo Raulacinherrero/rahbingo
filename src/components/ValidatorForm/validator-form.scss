@@ -8,12 +8,11 @@
     .validator-title {
         display: block;
         font-weight: bold;
-        padding: 0.5rem;
         font-size: 5rem;
         font-family: sans-serif;
         color: $corpColor;
         text-align: center;
-        margin-top: 4rem;
+        margin-top: 3rem;
     }
 
     .validator-form {
@@ -22,7 +21,6 @@
         gap: 1rem;
 
         .selects-container {
-            margin-top: 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -61,7 +59,6 @@
             align-items: center;
 
             .validator-button {
-                margin-top: 26rem;
                 position: fixed;
                 background-color: $corpColor;
                 color: $blanco;
@@ -83,6 +80,7 @@
             }
 
             .validator-volver-button {
+                margin-top: 34rem;
                 position: fixed;
                 background-color: $corpColor;
                 color: $blanco;

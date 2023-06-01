@@ -53,3 +53,22 @@
         }
     }
 }
+
+.resultado-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem;
+    font-family: sans-serif;
+    color: $corpColor;
+    width: 38rem;
+}
+
+.resultado-subtitle {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: sans-serif;
+    color: $corpColor;
+    width: 38rem;
+}
