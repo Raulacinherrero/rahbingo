@@ -18,6 +18,7 @@ interface NextNumberProps {
 
 const NextNumber = ({ DatosPartida }: NextNumberProps) => {
   const [numerosBomboState, setNumerosBombo] = useState<string>(DatosPartida?.idNumerosBombo || '');
+  const [sinNumeros, setSinNumeros] = useState(false);
   const numerosArray: number[] = [];
 
   for (let i = 0; i < numerosBomboState.length; i++) {
@@ -36,6 +37,9 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
 
   useEffect(() => {
     setIsButtonClicked(false);
+    if (numerosBomboState === 't'.repeat(90)) {
+      setSinNumeros(true);
+    }
   }, [numerosBomboState]);
 
   useEffect(() => {
@@ -137,14 +141,17 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
         </div>
         <div className='button-container'>
           {isButtonClicked ? (
+            !sinNumeros &&
             <button className='button' disabled>
               Siguiente número
             </button>
           ) : (
             <>
-              <button className='button' onClick={generarNumeroAleatorio}>
-                {numeroAleatorio === null ? 'Continuar Partida' : 'Siguiente número'}
-              </button>
+              {!sinNumeros && (
+                <button className='button' onClick={generarNumeroAleatorio}>
+                  {numeroAleatorio === null && !sinNumeros ? 'Continuar Partida' : 'Siguiente número'}
+                </button>
+              )}
               {numeroAleatorio === null && (
                 <Link to='/validator' className='button'>Ir al Validador</Link>
               )}
