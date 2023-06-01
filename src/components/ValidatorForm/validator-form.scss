@@ -1,1 +1,91 @@
 @import '../../styles/variables.scss';
+
+.validator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .validator-title {
+        display: block;
+        font-weight: bold;
+        padding: 0.5rem;
+        font-size: 5rem;
+        font-family: sans-serif;
+        color: $corpColor;
+        text-align: center;
+        margin-top: 4rem;
+    }
+
+    .validator-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+
+        .selects-container {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .validator-label {
+                font-weight: bold;
+                padding: 0.5rem;
+                font-size: 3rem;
+                font-family: sans-serif;
+                color: $corpColor;
+                text-align: center;
+                margin: 2rem;
+            }
+
+            .validator-select {
+                background-color: $blanco;
+                height: 6rem;
+                margin: 2rem;
+                font-weight: bold;
+                font-size: 3rem;
+                border: 0.3rem solid $blanco;
+                border-radius: 2rem;
+                transition: border-color 0.2s ease-in-out;
+                font-family: sans-serif;
+                color: $corpColor;
+                width: 35rem;
+                text-align: center;
+                outline: none;
+                border-color: $corpColor;
+            }
+        }
+
+        .button-board-container {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .validator-button {
+                position: fixed;
+                margin-top: 19rem;
+                background-color: $corpColor;
+                color: $blanco;
+                font-size: 2rem;
+                font-family: sans-serif;
+                border: none;
+                border-radius: 2rem;
+                padding: 1rem 2rem;
+                cursor: pointer;
+                height: 5rem;
+
+                &:active {
+                    background-color: $corpColor2;
+                }
+            }
+        }
+
+        .selects-container-half {
+            grid-column: span 1;
+        }
+
+        .button-board-container-half {
+            grid-column: span 1;
+        }
+    }
+}

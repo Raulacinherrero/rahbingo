@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BoardBingo from '../BoardBingo/BoardBingo';
+import { Link } from 'gatsby';
 import './validator-form.scss';
 
 const ValidatorForm = ({ DatosPartida }) => {
@@ -7,6 +8,18 @@ const ValidatorForm = ({ DatosPartida }) => {
   const [selectedCarton, setSelectedCarton] = useState('');
   const [selectedLinea, setSelectedLinea] = useState('');
   const [updateBoard, setUpdateBoard] = useState(false);
+  const [selectsContainerClass, setSelectsContainerClass] = useState('selects-container');
+  const [buttonBoardContainerClass, setButtonBoardContainerClass] = useState('button-board-container');
+
+  useEffect(() => {
+    if (selectedCarton) {
+      setSelectsContainerClass('selects-container-half');
+      setButtonBoardContainerClass('button-board-container-half');
+    } else {
+      setSelectsContainerClass('selects-container');
+      setButtonBoardContainerClass('button-board-container');
+    }
+  }, [selectedCarton]);
 
   const handleJugadorChange = (event) => {
     const jugadorId = event.target.value;
@@ -41,50 +54,55 @@ const ValidatorForm = ({ DatosPartida }) => {
   const Caselinea = DatosPartida?.GanadoresLinea?.length === 0;
 
   return (
-    <div>
-      <div>
-        <label>
-          Jugador:
-          <select value={selectedJugador} onChange={handleJugadorChange}>
-            <option value="null">Selecciona un jugador</option>
-            {DatosPartida.ListaJugadores.map((jugador) => (
-              <option key={jugador.idJugador} value={jugador.idJugador}>
-                {jugador.nombreJugador}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      {selectedJugador && (
-        <div>
-          <label>
-            Cartón:
-            <select value={selectedCarton} onChange={handleCartonChange}>
-              <option value="null">Selecciona un cartón</option>
-              {DatosPartida.ListaJugadores.map((jugador) => {
-                if (jugador.idJugador === selectedJugador) {
-                  return jugador.CartonesJugador.map((carton, index) => (
-                    <option key={carton.idCarton} value={carton.carton}>
-                      {index + 1}
-                    </option>
-                  ));
-                }
-                return null;
-              })}
-            </select>
-          </label>
-        </div>
+    <div className='validator-container'>
+      {Caselinea ? (
+        <h1 className='validator-title'>¿La línea es correcta?</h1>
+      ) : (
+        <h1 className='validator-title'>¿El bingo es correcto?</h1>
       )}
+      <div className='validator-form'>
+        <div className='selects-container'>
+          <div>
+            <label className='validator-label'>
+              Jugador:
+              <select className='validator-select' value={selectedJugador} onChange={handleJugadorChange}>
+                <option value="null">Selecciona un jugador</option>
+                {DatosPartida.ListaJugadores.map((jugador) => (
+                  <option key={jugador.idJugador} value={jugador.idJugador}>
+                    {jugador.nombreJugador}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
 
-      {selectedCarton && (
-        <>
-          {Caselinea && (
+          {selectedJugador && (
             <div>
-              <label>
+              <label className='validator-label'>
+                Cartón:
+                <select className='validator-select' value={selectedCarton} onChange={handleCartonChange}>
+                  <option value="null">Selecciona un cartón</option>
+                  {DatosPartida.ListaJugadores.map((jugador) => {
+                    if (jugador.idJugador === selectedJugador) {
+                      return jugador.CartonesJugador.map((carton, index) => (
+                        <option key={carton.idCarton} value={carton.carton}>
+                          {index + 1}
+                        </option>
+                      ));
+                    }
+                    return null;
+                  })}
+                </select>
+              </label>
+            </div>
+          )}
+
+          {selectedCarton && Caselinea && (
+            <div>
+              <label className='validator-label'>
                 Línea:
-                <select value={selectedLinea} onChange={handleLineaChange}>
-                  <option value="null">Selecciona una linea</option>
+                <select className='validator-select' value={selectedLinea} onChange={handleLineaChange}>
+                  <option value="null">Selecciona una línea</option>
                   <option value="0">1</option>
                   <option value="1">2</option>
                   <option value="2">3</option>
@@ -92,20 +110,29 @@ const ValidatorForm = ({ DatosPartida }) => {
               </label>
             </div>
           )}
-          <div>
-            <BoardBingo
-              key={selectedCarton}
-              Carton={selectedCarton}
-              estado={updateBoard ? 2 : 0}
-              linea={selectedLinea !== 'null' ? Number(selectedLinea) : null}
-              onBoardUpdate={handleBoardUpdate}
-            />
+        </div>
+
+        {selectedCarton && (
+          <div className='button-board-container'>
+            <div>
+              <BoardBingo
+                key={selectedCarton}
+                Carton={selectedCarton}
+                estado={updateBoard ? 2 : 0}
+                linea={selectedLinea !== 'null' ? Number(selectedLinea) : null}
+                onBoardUpdate={handleBoardUpdate}
+              />
+            </div>
+            {Caselinea && selectedLinea !== '' && (
+              Caselinea ? (
+                <button className='validator-button' onClick={handleButtonClick}>Validar Línea</button>
+              ) : (
+                <button className='validator-button' onClick={handleButtonClick}>Validar Carton</button>
+              )
+            )}
           </div>
-          {Caselinea && selectedLinea !== "" ? (
-            <button onClick={handleButtonClick}>Update Board</button>
-          ) : null}
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 };
