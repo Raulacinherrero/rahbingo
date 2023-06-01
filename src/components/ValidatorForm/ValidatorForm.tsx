@@ -69,7 +69,7 @@ const ValidatorForm = ({ DatosPartida }) => {
                     if (jugador.idJugador === selectedJugador) {
                       return jugador.CartonesJugador.map((carton, index) => (
                         <option key={carton.idCarton} value={carton.carton}>
-                          {index + 1}
+                          {index + 1}º Cartón
                         </option>
                       ));
                     }
@@ -86,9 +86,9 @@ const ValidatorForm = ({ DatosPartida }) => {
                 Línea:
                 <select className='validator-select' value={selectedLinea} onChange={handleLineaChange}>
                   <option value="null">Selecciona una línea</option>
-                  <option value="0">1</option>
-                  <option value="1">2</option>
-                  <option value="2">3</option>
+                  <option value="0">1ª Línea</option>
+                  <option value="1">2ª Línea</option>
+                  <option value="2">3ª línea</option>
                 </select>
               </label>
             </div>
