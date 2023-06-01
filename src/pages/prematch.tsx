@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { obtenerDatosDocumento } from '../firebase';
 import Navbar from '../components/Navbar/Navbar';
 import ShowBoards from '../components/ShowBoards/ShowBoards';
-import { Link } from 'gatsby';
 
 const PreMatch = () => {
   const [idPartida, setIdPartida] = useState('');
