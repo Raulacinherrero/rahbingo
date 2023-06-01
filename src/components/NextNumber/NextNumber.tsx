@@ -52,9 +52,9 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
           const cartonJson = CartonBingo.idToCarton(Carton);
 
           const DespistadosBingo = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo");
+          const DespistadosLinea = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea");
 
           cartonJson?.forEach(async (linea) => {
-            const DespistadosLinea = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea");
             linea?.forEach((numero) => {
               if (numero[0] === numeroAleatorio) {
                 numero[1] = true;
@@ -78,10 +78,10 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
             }
           });
 
-          if (CartonBingo.isBingo(cartonJson) && !DespistadosBingo.includes(jugador.idJugador)) {
+          if (CartonBingo.isBingo(cartonJson) && DespistadosBingo && Array.isArray(DespistadosBingo) && !DespistadosBingo.includes(jugador.idJugador)) {
             console.error(jugador.nombreJugador + " tiene bingo");
-            DespistadosBingo.push(jugador.idJugador);
-            await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", DespistadosBingo);
+            const updatedDespistadosBingo = [...DespistadosBingo, jugador.idJugador];
+            await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", updatedDespistadosBingo);
           }
 
           const updatedCartonJson: [number, boolean][][] = cartonJson.map((linea) =>
