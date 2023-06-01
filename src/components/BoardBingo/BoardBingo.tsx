@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CartonBingo from '../../classes/CartonBingo';
 import logo from '../../images/icono-negro.svg';
 import './board-bingo.scss';
 
 interface BoardBingoProps {
   Carton: any;
-  mobile: boolean;
+  estado: number;
+  linea: number | null;
 }
 
-const BoardBingo = ({ Carton, mobile }: BoardBingoProps) => {
-  const cartonJson = CartonBingo.idToCarton(Carton.carton);
+const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
+  const cartonJson = CartonBingo.idToCarton(Carton);
   const [tdClassNames, setTdClassNames] = useState(
     Array(cartonJson.length)
       .fill(null)
@@ -21,7 +22,7 @@ const BoardBingo = ({ Carton, mobile }: BoardBingoProps) => {
   };
 
   const handleNumberClick = (rowIndex: number, columnIndex: number) => {
-    if (mobile && cartonJson[rowIndex][columnIndex][0] !== 0) {
+    if (estado === 1 && cartonJson[rowIndex][columnIndex][0] !== 0) {
       const updatedTdClassNames = tdClassNames.map((row, i) =>
         row.map((className, j) =>
           i === rowIndex && j === columnIndex
@@ -32,6 +33,76 @@ const BoardBingo = ({ Carton, mobile }: BoardBingoProps) => {
       setTdClassNames(updatedTdClassNames);
     }
   };
+  
+  useEffect(() => {
+    if (estado === 0) {
+      const updatedTdClassNames = tdClassNames.map((row, i) =>
+        row.map((className, j) =>
+          cartonJson[i][j][0] !== 0 ? 'board-number' : className
+        )
+      );
+      setTdClassNames(updatedTdClassNames);
+    } else if (estado === 2) {
+      const animateStyles = () => {
+        const tdIndicesToAnimate: [number, number][] = [];
+  
+        if (linea !== null) {
+          // Calcular los TD relevantes para animar y excluir los TD con número 0
+          let foundFalse = false;
+          for (let columnIndex = 0; columnIndex < cartonJson[linea].length; columnIndex++) {
+            if (cartonJson[linea][columnIndex][0] !== 0) {
+              if (!foundFalse || cartonJson[linea][columnIndex][1] !== false) {
+                if (foundFalse && cartonJson[linea][columnIndex][1] === true) {
+                  break; // Detener el bucle si se encuentra un true después del primer false
+                }
+                tdIndicesToAnimate.push([linea, columnIndex]);
+                if (cartonJson[linea][columnIndex][1] === false) {
+                  foundFalse = true;
+                }
+              }
+            }
+          }
+        } else {
+          // Calcular todos los TD del cartón y excluir los TD con número 0 y con el valor booleano false
+          let foundFalse = false;
+          for (let rowIndex = 0; rowIndex < cartonJson.length; rowIndex++) {
+            for (let columnIndex = 0; columnIndex < cartonJson[rowIndex].length; columnIndex++) {
+              if (cartonJson[rowIndex][columnIndex][0] !== 0) {
+                if (!foundFalse || cartonJson[rowIndex][columnIndex][1] !== false) {
+                  if (foundFalse && cartonJson[rowIndex][columnIndex][1] === true) {
+                    break; // Detener el bucle si se encuentra un true después del primer false
+                  }
+                  tdIndicesToAnimate.push([rowIndex, columnIndex]);
+                  if (cartonJson[rowIndex][columnIndex][1] === false) {
+                    foundFalse = true;
+                  }
+                }
+              }
+            }
+          }
+        }
+  
+        const animationInterval = setInterval(() => {
+          if (tdIndicesToAnimate.length === 0) {
+            clearInterval(animationInterval);
+            return;
+          }
+  
+          const [rowIndex, columnIndex] = tdIndicesToAnimate.shift()!;
+          setTdClassNames(prevClassNames => {
+            const updatedClassNames = [...prevClassNames];
+            updatedClassNames[rowIndex][columnIndex] = 'board-number ' + cartonJson[rowIndex][columnIndex][1].toString();
+            return updatedClassNames;
+          });
+        }, 500); // Medio segundo de intervalo entre cambios de estilo
+  
+        // Limpiar el intervalo al desmontar el componente
+        return () => clearInterval(animationInterval);
+      };
+  
+      animateStyles();
+    }
+  }, [estado, linea, tdClassNames, cartonJson]);  
 
   return (
     <table className='table-board'>

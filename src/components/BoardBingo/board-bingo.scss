@@ -37,5 +37,19 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+
+        &.true {
+            background-image: url('../../images/icono-verde.svg');
+            background-size: 70px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        &.false {
+            background-image: url('../../images/icono-rojo.svg');
+            background-size: 70px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
     }
 }
