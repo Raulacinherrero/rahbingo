@@ -47,9 +47,9 @@ function Navbar({ initialVisible }) {
               <Link to="/players" className="dropdown-link">
                 Nueva Partida
               </Link>
-              <a className="dropdown-link" href="#">
+              <Link to="/loader" className="dropdown-link">
                 Cargar Partida
-              </a>
+              </Link>
             </div>
           </li>
         </ul>

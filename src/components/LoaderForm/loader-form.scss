@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.title {
+.loader-form-title {
     font-weight: bold;
     padding: 0.5rem;
     font-size: 3rem;
@@ -11,13 +11,13 @@
     margin-top: 10rem;
 }
 
-.ID-label {
-    margin-left: 28rem;
+.loader-form-ID-label {
+    margin-left: 30rem;
     font-family: sans-serif;
     font-weight: bold;
     font-size: 4rem;
 
-    .ID-imput{
+    .loader-form-ID-imput{
         margin-left: 2rem;
         border-radius: 3rem;
         font-weight: bold;
@@ -37,7 +37,7 @@
     }
 }
 
-.button {
+.loader-form-button {
     margin-left: 3rem;
     background-color: $corpColor;
     color: $blanco;
