@@ -46,6 +46,8 @@ const ValidatorForm = ({ DatosPartida }) => {
   };
 
   const CaseLinea = DatosPartida?.GanadoresLinea?.length === 0;
+  const CaseBingo = DatosPartida?.GanadoresBingo?.length === 0;
+  const FinalPartida = ganadoresBingo?.length === 0;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,9 +138,9 @@ const ValidatorForm = ({ DatosPartida }) => {
   return (
     <div className='validator-container'>
       {CaseLinea ? (
-        <h1 className='validator-title'>¿La línea es correcta?</h1>
+        <h1 className='validator-title'>¿La Línea es correcta?</h1>
       ) : (
-        <h1 className='validator-title'>¿El bingo es correcto?</h1>
+        <h1 className='validator-title'>¿El Bingo es correcto?</h1>
       )}
       <div className='validator-form'>
         {!hidden && (
@@ -147,7 +149,7 @@ const ValidatorForm = ({ DatosPartida }) => {
               <label className='validator-label'>
                 Jugador:
                 <select className='validator-select' value={selectedJugador} onChange={handleJugadorChange}>
-                  <option value="null">Selecciona un jugador</option>
+                  <option value="null">Selecciona un Jugador</option>
                   {DatosPartida.ListaJugadores.map((jugador) => (
                     <option key={jugador.idJugador} value={jugador.idJugador}>
                       {jugador.nombreJugador}
@@ -162,7 +164,7 @@ const ValidatorForm = ({ DatosPartida }) => {
                 <label className='validator-label'>
                   Cartón:
                   <select className='validator-select' value={selectedCarton} onChange={handleCartonChange}>
-                    <option value="null">Selecciona un cartón</option>
+                    <option value="null">Selecciona un Cartón</option>
                     {DatosPartida.ListaJugadores.map((jugador) => {
                       if (jugador.idJugador === selectedJugador) {
                         return jugador.CartonesJugador.map((carton, index) => (
@@ -183,7 +185,7 @@ const ValidatorForm = ({ DatosPartida }) => {
                 <label className='validator-label'>
                   Línea:
                   <select className='validator-select' value={selectedLinea} onChange={handleLineaChange}>
-                    <option value="null">Selecciona una línea</option>
+                    <option value="null">Selecciona una Línea</option>
                     <option value="0">1ª Línea</option>
                     <option value="1">2ª Línea</option>
                     <option value="2">3ª línea</option>
@@ -208,12 +210,12 @@ const ValidatorForm = ({ DatosPartida }) => {
             <button className='validator-button' onClick={Validar}>Validar Línea</button>
           )}
           {!CaseLinea && selectedCarton !== '' && !hidden && (
-            <button className='validator-button' onClick={Validar}>Validar Carton</button>
+            <button className='validator-button' onClick={Validar}>Validar Bingo</button>
           )}
         </div>
       </div>
       <div>
-        {CaseLinea ? (
+        {CaseBingo && FinalPartida ? (
           <Link to='/match' className='validator-volver-button'>Volver</Link>
         ) : (
           <Link to='/winners' className='validator-terminar-button'>Terminar</Link>
