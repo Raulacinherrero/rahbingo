@@ -112,9 +112,9 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
 
   return (
     <>
-      {animationFinished && (
+      {animationFinished ? (
         <>
-          {CaseLinea && (
+          {CaseLinea ? (
             <>
               {lineaValida ? (
                 <p className='resultado-title'>La línea es correcta</p>
@@ -122,8 +122,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
                 <p className='resultado-title'>La línea NO es correcta</p>
               )}
             </>
-          )}
-          {!CaseLinea && (
+          ) : (
             <>
               {BingoValido ? (
                 <p className='resultado-title'>El Bingo es correcto</p>
@@ -133,6 +132,8 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
             </>
           )}
         </>
+      ) : (
+        <p className='resultado-title'>¿Es este tu cartón?</p>
       )}
       <table className='table-board'>
         <tbody>
@@ -171,7 +172,7 @@ const BoardBingo = ({ Carton, estado, linea }: BoardBingoProps) => {
       )}
     </>
   );
-  
+
 };
 
 export default BoardBingo;
