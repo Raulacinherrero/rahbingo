@@ -7,7 +7,16 @@ import CartonBingo from '../../classes/CartonBingo';
 import Bombo from '../Bombo/Bombo';
 import './next-number.scss';
 
-const NextNumber = ({ DatosPartida }) => {
+interface NextNumberProps {
+  DatosPartida: {
+    idNumerosBombo: string;
+    GanadoresLinea: any[];
+    ListaJugadores: any[];
+    idPartida: string;
+  };
+}
+
+const NextNumber = ({ DatosPartida }: NextNumberProps) => {
   const [numerosBomboState, setNumerosBombo] = useState<string>(DatosPartida?.idNumerosBombo || '');
   const numerosArray: number[] = [];
 
@@ -132,9 +141,14 @@ const NextNumber = ({ DatosPartida }) => {
               Siguiente número
             </button>
           ) : (
-            <button className='button' onClick={generarNumeroAleatorio}>
-              {numeroAleatorio === null ? 'Continuar Partida' : 'Siguiente número'}
-            </button>
+            <>
+              <button className='button' onClick={generarNumeroAleatorio}>
+                {numeroAleatorio === null ? 'Continuar Partida' : 'Siguiente número'}
+              </button>
+              {numeroAleatorio === null && (
+                <Link to='/validator' className='button'>Ir al Validador</Link>
+              )}
+            </>
           )}
           {numeroAleatorio !== null && (
             Caselinea ? (
