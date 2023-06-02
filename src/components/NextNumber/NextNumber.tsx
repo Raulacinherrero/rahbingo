@@ -48,24 +48,27 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
     }
   }, []);
 
-  useEffect(() => {
+  const fetchData = async () => {
     if (numeroAleatorio !== null) {
-      DatosPartida.ListaJugadores?.forEach(async (jugador) => {
-        jugador.CartonesJugador.forEach(async (carton) => {
+      const jugadoresLinea = [];
+      const jugadoresBingo = [];
+  
+      const DespistadosBingo = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo");
+      const DespistadosLinea = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea");
+  
+      for (const jugador of DatosPartida.ListaJugadores || []) {
+        for (const carton of jugador.CartonesJugador) {
           var Carton = await obtenerCampoDocumento("CartonesJugador", carton.idCarton, "carton");
           const cartonJson = CartonBingo.idToCarton(Carton);
-
-          const DespistadosBingo = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo");
-          const DespistadosLinea = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea");
-
-          cartonJson?.forEach(async (linea) => {
-            linea?.forEach((numero) => {
+  
+          for (const linea of cartonJson) {
+            for (const numero of linea) {
               if (numero[0] === numeroAleatorio) {
                 numero[1] = true;
                 console.error(jugador.nombreJugador + " tiene el número " + numeroAleatorio);
               }
-            });
-
+            }
+  
             if (
               CartonBingo.isLinea(linea) &&
               DespistadosLinea &&
@@ -74,32 +77,40 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
               Caselinea
             ) {
               console.error(jugador.nombreJugador + " tiene línea");
-              const updatedDespistadosLinea = [...DespistadosLinea, jugador.idJugador];
-              await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", updatedDespistadosLinea);
+              jugadoresLinea.push(jugador.idJugador);
             }
-          });
-
-          if (CartonBingo.isBingo(cartonJson) && DespistadosBingo && Array.isArray(DespistadosBingo) && !DespistadosBingo.includes(jugador.idJugador)) {
-            console.error(jugador.nombreJugador + " tiene bingo");
-            const updatedDespistadosBingo = [...DespistadosBingo, jugador.idJugador];
-            await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", updatedDespistadosBingo);
           }
-
-          const updatedCartonJson: [number, boolean][][] = cartonJson.map((linea) =>
-            linea.map((numero) => {
-              if (numero[0] === numeroAleatorio) {
-                return [numero[0], true];
-              }
-              return [numero[0], numero[1]];
-            })
-          );
-
-          Carton = CartonBingo.cartonToId(updatedCartonJson);
+  
+          if (
+            CartonBingo.isBingo(cartonJson) &&
+            DespistadosBingo &&
+            Array.isArray(DespistadosBingo) &&
+            !DespistadosBingo.includes(jugador.idJugador)
+          ) {
+            console.error(jugador.nombreJugador + " tiene bingo");
+            jugadoresBingo.push(jugador.idJugador);
+          }
+  
+          Carton = CartonBingo.cartonToId(cartonJson);
           await actualizarCampoDocumento("CartonesJugador", carton.idCarton, "carton", Carton);
-        });
-      });
-      setIsButtonClicked(true);
+        }
+      }
+  
+      if (jugadoresLinea.length > 0) {
+        const updatedDespistadosLinea = [...DespistadosLinea, ...jugadoresLinea];
+        await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", updatedDespistadosLinea);
+      }
+  
+      if (jugadoresBingo.length > 0) {
+        const updatedDespistadosBingo = [...DespistadosBingo, ...jugadoresBingo];
+        await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", updatedDespistadosBingo);
+      }
     }
+  };
+
+  useEffect(() => {
+    fetchData();
+    setIsButtonClicked(true);
   }, [numeroAleatorio]);
 
   const generarNumeroAleatorio = async () => {
