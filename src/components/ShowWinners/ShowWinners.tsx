@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'gatsby';
 import "./show-winners.scss";
 
 const ShowWinners = ({ DatosPartida }) => {
@@ -56,6 +57,7 @@ const ShowWinners = ({ DatosPartida }) => {
                     </ul>
                 </>
             )}
+            <Link to='/players' className='winners-play-again-button'>Volver a Jugar</Link>
         </div>
     );
 };
