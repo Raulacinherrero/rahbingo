@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+
+.winners-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3rem;
+
+    .winners-title{
+        display: block;
+        font-weight: bold;
+        font-size: 2.5rem;
+        font-family: sans-serif;
+        color: $corpColor;
+        text-align: center;
+    }
+    
+    .winners-subtitle{
+        margin: 1rem;
+        display: block;
+        font-weight: bold;
+        font-size: 2rem;
+        font-family: sans-serif;
+        color: $corpColor;
+    }
+    
+    .winners-list{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 2rem;
+    
+        .winners-player{
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+    }
+
+}
