@@ -30,14 +30,14 @@ function Navbar({ initialVisible }) {
         </div>
         <ul>
           <li>
-            <a className="link" href="#">
+            <Link to='/rules' className="link" >
               Reglas
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="link" href="#">
+            <Link to='/settings' className="link" >
               Opciones
-            </a>
+            </Link>
           </li>
           <li>
             <span className="tercer-link" onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
