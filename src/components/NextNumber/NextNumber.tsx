@@ -52,15 +52,15 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
     if (numeroAleatorio !== null) {
       const jugadoresLinea = [];
       const jugadoresBingo = [];
-  
+
       const DespistadosBingo = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo");
       const DespistadosLinea = await obtenerCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea");
-  
+
       for (const jugador of DatosPartida.ListaJugadores || []) {
         for (const carton of jugador.CartonesJugador) {
           var Carton = await obtenerCampoDocumento("CartonesJugador", carton.idCarton, "carton");
           const cartonJson = CartonBingo.idToCarton(Carton);
-  
+
           for (const linea of cartonJson) {
             for (const numero of linea) {
               if (numero[0] === numeroAleatorio) {
@@ -68,7 +68,7 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
                 console.error(jugador.nombreJugador + " tiene el número " + numeroAleatorio);
               }
             }
-  
+
             if (
               CartonBingo.isLinea(linea) &&
               DespistadosLinea &&
@@ -80,7 +80,7 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
               jugadoresLinea.push(jugador.idJugador);
             }
           }
-  
+
           if (
             CartonBingo.isBingo(cartonJson) &&
             DespistadosBingo &&
@@ -90,17 +90,17 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
             console.error(jugador.nombreJugador + " tiene bingo");
             jugadoresBingo.push(jugador.idJugador);
           }
-  
+
           Carton = CartonBingo.cartonToId(cartonJson);
           await actualizarCampoDocumento("CartonesJugador", carton.idCarton, "carton", Carton);
         }
       }
-  
+
       if (jugadoresLinea.length > 0) {
         const updatedDespistadosLinea = [...DespistadosLinea, ...jugadoresLinea];
         await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", updatedDespistadosLinea);
       }
-  
+
       if (jugadoresBingo.length > 0) {
         const updatedDespistadosBingo = [...DespistadosBingo, ...jugadoresBingo];
         await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosBingo", updatedDespistadosBingo);
@@ -110,7 +110,9 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
 
   useEffect(() => {
     fetchData();
-    setIsButtonClicked(true);
+    if (numeroAleatorio !== null) {
+      setIsButtonClicked(true);
+    }
   }, [numeroAleatorio]);
 
   const generarNumeroAleatorio = async () => {
