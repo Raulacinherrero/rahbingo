@@ -66,10 +66,6 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
               }
             });
 
-            if (CartonBingo.isLinea(linea)) {
-              console.error(jugador.nombreJugador + " tiene línea");
-            }
-
             if (
               CartonBingo.isLinea(linea) &&
               DespistadosLinea &&
@@ -77,6 +73,7 @@ const NextNumber = ({ DatosPartida }: NextNumberProps) => {
               !DespistadosLinea.includes(jugador.idJugador) &&
               Caselinea
             ) {
+              console.error(jugador.nombreJugador + " tiene línea");
               const updatedDespistadosLinea = [...DespistadosLinea, jugador.idJugador];
               await actualizarCampoDocumento("DatosPartida", DatosPartida.idPartida, "DespistadosLinea", updatedDespistadosLinea);
             }
