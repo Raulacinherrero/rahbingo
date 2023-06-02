@@ -46,8 +46,7 @@ const ValidatorForm = ({ DatosPartida }) => {
   };
 
   const CaseLinea = DatosPartida?.GanadoresLinea?.length === 0;
-  const CaseBingo = DatosPartida?.GanadoresBingo?.length === 0;
-  const FinalPartida = ganadoresBingo?.length === 0;
+  const CaseBingo = ganadoresBingo?.length === 0;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -215,7 +214,7 @@ const ValidatorForm = ({ DatosPartida }) => {
         </div>
       </div>
       <div>
-        {CaseBingo && FinalPartida ? (
+        {CaseBingo ? (
           <Link to='/match' className='validator-volver-button'>Volver</Link>
         ) : (
           <Link to='/winners' className='validator-terminar-button'>Terminar</Link>
