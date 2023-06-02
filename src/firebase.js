@@ -8,13 +8,13 @@ import { getFirestore, collection, doc, setDoc, getDoc } from "firebase/firestor
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDWLPbs-_jEouDbKTMzQZPXRemx84yk13E",
-  authDomain: "rah-bingo-2fd5c.firebaseapp.com",
-  projectId: "rah-bingo-2fd5c",
-  storageBucket: "rah-bingo-2fd5c.appspot.com",
-  messagingSenderId: "61845727163",
-  appId: "1:61845727163:web:8c4fa6296755cb34e8c69e",
-  measurementId: "G-PKWZ9RREWT"
+  apiKey: "AIzaSyA3r4X0RYZqSpePMU4hialZ_CxWXVERWAk",
+  authDomain: "rah-bingo-28e8b.firebaseapp.com",
+  projectId: "rah-bingo-28e8b",
+  storageBucket: "rah-bingo-28e8b.appspot.com",
+  messagingSenderId: "505019744648",
+  appId: "1:505019744648:web:5b3fe75a77ad86505e7a3d",
+  measurementId: "G-R65XZV6GNL"
 };
 
 // Initialize Firebase
