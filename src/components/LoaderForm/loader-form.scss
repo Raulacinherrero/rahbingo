@@ -19,6 +19,7 @@
 
     .loader-form-ID-imput{
         margin-left: 2rem;
+        margin-bottom: 4rem;
         border-radius: 3rem;
         font-weight: bold;
         width: 45rem;
@@ -48,6 +49,23 @@
     padding: 1rem 2rem;
     height: 5rem;
     cursor: pointer;
+
+    &:active {
+        background-color: $corpColor2;
+    }
+}
+
+.last-match-button {
+    margin-left: 48rem;
+    background-color: $corpColor;
+    color: $blanco;
+    font-size: 2rem;
+    font-family: sans-serif;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    height: 5rem;
 
     &:active {
         background-color: $corpColor2;

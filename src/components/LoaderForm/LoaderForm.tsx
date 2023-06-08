@@ -5,9 +5,12 @@ import './loader-form.scss';
 const LoaderForm = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputValue, setInputValue] = useState('');
+    const [hasLastMatch, setHasLastMatch] = useState(false);
 
     useEffect(() => {
         inputRef.current && inputRef.current.focus();
+        const lastMatchId = localStorage.getItem('idPartida');
+        setHasLastMatch(!!lastMatchId);
     }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +35,9 @@ const LoaderForm = () => {
                 <input type="text" ref={inputRef} className='loader-form-ID-imput' onChange={handleInputChange} />
             </label>
             <button type="submit" className='loader-form-button'>Enviar</button>
+            {hasLastMatch && (
+                <Link to='/prematch' className='last-match-button'>Cargar Última Partida</Link>
+            )}
         </form>
     );
 };
