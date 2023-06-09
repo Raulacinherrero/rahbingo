@@ -19,7 +19,6 @@ const ShowWinners = ({ DatosPartida }) => {
                 {DatosPartida.GanadoresLinea.map((ganador, index) => (
                     <>
                         <p key={index} className="winners-player">{getJugadorNombre(ganador)}</p>
-                        <p className="winners-player">Hola</p>
                     </>
                 ))}
             </ul>
